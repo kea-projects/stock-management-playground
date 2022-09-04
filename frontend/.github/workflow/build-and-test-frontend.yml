@@ -1,0 +1,35 @@
+name: Build and test frontend
+on:
+    pull_request:
+        branches: [development]
+
+jobs:
+  build:
+    name: build and test frontend development
+    runs-on: ubuntu-latest
+    env:
+      environment: dev
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+
+      - name: Run ESLint
+        run: yarn eslint . --ext .js,.jsx,.ts,.tsx
+
+      - name: Build
+        run: yarn build
+        shell: bash
+
+      - name: Test
+        run: yarn test
+        shell: bash
