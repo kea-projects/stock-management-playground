@@ -28,7 +28,7 @@ jobs:
           use-mypy: false
           use-pylint: false
           extra-pycodestyle-options: "--exclude .venv"
-          extra-flake8-options: "--exclude .venv"
+          extra-flake8-options: "--exclude */.venv/"
 
   test:
     name: Test backend development
