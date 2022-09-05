@@ -29,6 +29,7 @@ jobs:
         uses: weibullguy/python-lint-plus@master
         with:
           use-pydocstyle: false
+          extra-pycodestyle-options: "--exclude .venv"
 
   test:
     name: Test backend development
