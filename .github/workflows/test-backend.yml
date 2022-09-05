@@ -13,12 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
       - name: Linting
         uses: weibullguy/python-lint-plus@master
         with:
           use-pydocstyle: false
           use-mypy: false
           use-pylint: false
+          use-rstcheck: false
+          extra-pycodestyle-options: "--exclude .venv"
+          extra-flake8-options: "--exclude */backend/.venv/"
 
   test:
     name: Test backend development
