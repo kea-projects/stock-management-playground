@@ -14,6 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: weibullguy/python-lint-plus@master
+        with:
+          use-pydocstyle: false
 
   test:
     name: Test backend development
