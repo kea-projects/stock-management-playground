@@ -11,7 +11,7 @@ app.include_router(wallets.router)
 
 @app.get("/")
 def redirect_docs():
-  return RedirectResponse(url="/docs")
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/{full_path:path}")
