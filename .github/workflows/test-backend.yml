@@ -26,6 +26,7 @@ jobs:
         with:
           use-pydocstyle: false
           use-mypy: false
+          use-pylint: false
           extra-pylint-options: "--recursive yes"
           extra-pycodestyle-options: "--exclude .venv"
 
