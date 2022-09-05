@@ -18,8 +18,8 @@ jobs:
         with:
           use-pydocstyle: false
           use-mypy: false
-          extra-pylint-options: "--recursive"
-          
+          extra-pylint-options: "--recursive yes"
+
   test:
     name: Test backend development
     needs: lint
