@@ -27,6 +27,7 @@ jobs:
           use-pydocstyle: false
           use-mypy: false
           extra-pylint-options: "--recursive yes"
+          extra-pycodestyle-options: "--exclude .venv"
 
   test:
     name: Test backend development
