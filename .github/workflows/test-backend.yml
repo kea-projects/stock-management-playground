@@ -56,8 +56,3 @@ jobs:
           source .venv/bin/activate
           pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report
           py.test -v --cov --html=reports/pytest/report.html
-      - name: Archive pytest coverage results
-        uses: actions/upload-artifact@v1
-        with:
-          name: pytest-coverage-report
-          path: reports/pytest/
