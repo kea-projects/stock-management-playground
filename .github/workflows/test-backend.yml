@@ -53,21 +53,10 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Test with pytest
         run: |
-          poetry add pytest pytest-cov pytest-html pytest-sugar pytest-json-report
+          pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report
           py.test -v --cov --html=reports/pytest/report.html
       - name: Archive pytest coverage results
         uses: actions/upload-artifact@v1
         with:
           name: pytest-coverage-report
           path: reports/pytest/
-
-  security_checks:
-    needs: test
-    runs-on: ubuntu-latest
-    name: Security check
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run PyCharm Security
-        uses: tonybaloney/pycharm-security@master
-        with:
-          path: app/
