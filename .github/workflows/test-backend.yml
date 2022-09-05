@@ -29,7 +29,7 @@ jobs:
           use-pylint: false
           use-rstcheck: false
           extra-pycodestyle-options: "--exclude .venv"
-          extra-flake8-options: "--exclude */backend/.venv/"
+          extra-flake8-options: "--exclude .venv"
 
   test:
     name: Test backend development
