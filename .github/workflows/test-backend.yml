@@ -29,6 +29,7 @@ jobs:
           use-pylint: false
           use-rstcheck: false
           use-check-manifest: false
+          use-pyroma: false
           extra-pycodestyle-options: "--exclude .venv"
           extra-flake8-options: "--exclude .venv"
 
