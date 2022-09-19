@@ -2,9 +2,15 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
 from .routers import wallets
+from .utils.mongo import init_db
+
 
 app = FastAPI()
 
+
+@app.on_event("startup")
+async def init():
+    await init_db()
 
 app.include_router(wallets.router)
 
