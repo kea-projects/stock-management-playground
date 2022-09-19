@@ -1,5 +1,5 @@
-from beanie import init_beanie
 import motor
+from beanie import init_beanie
 from dotenv import dotenv_values
 
 from ..models.wallet import Wallet

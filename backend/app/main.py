@@ -4,7 +4,6 @@ from fastapi.responses import RedirectResponse
 from .routers import wallets
 from .utils.mongo import init_db
 
-
 app = FastAPI()
 
 
