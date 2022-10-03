@@ -1,10 +1,9 @@
 import os
-import pytest_asyncio
+
 import pytest
-
-from httpx import AsyncClient
-
+import pytest_asyncio
 from dotenv import dotenv_values
+from httpx import AsyncClient
 
 from ..main import app, get_settings
 from ..utils.mongo import close_db, init_db

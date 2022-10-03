@@ -1,5 +1,6 @@
-from beanie import PydanticObjectId
 from typing import List
+
+from beanie import PydanticObjectId
 from fastapi import APIRouter, HTTPException
 
 from ..models.wallet import Wallet
