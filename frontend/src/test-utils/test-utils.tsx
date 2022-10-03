@@ -4,6 +4,10 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '../theme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom'
+import {
+    UserDetail,
+    UserProvider,
+} from '../provider/user-provider/UserProvider'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
@@ -56,8 +60,8 @@ const renderWithReactQuery = (ui: ReactElement) => {
     }
     return render(<Wrapper>{ui}</Wrapper>)
 }
-/*
-//Flexible render option if need to test with user context
+
+//Flexible render option if you need to test with user context
 const renderWithUseContextUser = (
     ui: ReactElement,
     userDetail: UserDetail = {}
@@ -71,7 +75,6 @@ const renderWithUseContextUser = (
     }
     return customRender(<Wrapper>{ui}</Wrapper>)
 }
-*/
 
 const RouterProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     return <BrowserRouter>{children}</BrowserRouter>
@@ -120,9 +123,7 @@ const renderWithPresetUrl = (
 export {
     customRender as render,
     renderWithRouter,
-    /*
     renderWithUseContextUser,
-    */
     renderWithReactQuery,
     renderWithPresetUrl,
 }
