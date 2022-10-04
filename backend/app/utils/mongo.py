@@ -3,6 +3,7 @@ from beanie import init_beanie
 
 from ..configs.settings import Settings
 from ..models.wallet import Wallet
+from ..models.user import User
 
 client = None
 
@@ -14,7 +15,7 @@ async def init_db(settings: Settings):
         f":{settings.config['MONGO_PASSWORD']}@{settings.config['MONGO_HOST']}"
     )
     await init_beanie(database=client.stock_management_playground,
-                      document_models=[Wallet])
+                      document_models=[Wallet, User])
     print("MongoDB initialized!")
 
 
