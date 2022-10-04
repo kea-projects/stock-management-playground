@@ -49,9 +49,18 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-username: ${{ secrets.MONGO_USER }}
+          mongodb-password: ${{ secrets.MONGO_PASSWORD }}
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
       - name: Test with pytest
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
         run: |
           source .venv/bin/activate
           pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report
