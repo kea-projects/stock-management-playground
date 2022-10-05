@@ -1,18 +1,13 @@
-from functools import lru_cache
-
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 
-from .configs.settings import Settings
+from .configs.settings import get_settings
 from .routers import wallets
+from .routers import users
+from .routers import auth
 from .utils.mongo import init_db
 
 app = FastAPI()
-
-
-@lru_cache()
-def get_settings():
-    return Settings()
 
 
 @app.on_event("startup")
@@ -20,6 +15,8 @@ async def init():
     await init_db(get_settings())
 
 app.include_router(wallets.router)
+app.include_router(users.router)
+app.include_router(auth.router)
 
 
 @app.get("/")
