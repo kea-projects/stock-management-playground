@@ -3,6 +3,7 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
+import { server } from './mock-api/server'
 beforeAll(() => {
     window.matchMedia = (query) => ({
         matches: false,
@@ -15,3 +16,5 @@ beforeAll(() => {
         dispatchEvent: jest.fn(),
     })
 })
+beforeEach(() => server.listen())
+afterEach(() => server.close())

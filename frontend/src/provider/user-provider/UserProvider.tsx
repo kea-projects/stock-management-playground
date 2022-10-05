@@ -3,7 +3,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage'
 
 export interface UserDetail {
     token?: string
-    userId?: string
+    tokenType?: string
 }
 
 interface UserProviderProps {

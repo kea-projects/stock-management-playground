@@ -1,4 +1,4 @@
-import { decryptObj, encryptObj } from './crypto-util'
+import { decryptObj, encryptObj } from './cryptoUtil'
 
 describe('checks if the encrypting utilities work as expected', () => {
     let encryptedString: string

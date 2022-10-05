@@ -14,7 +14,7 @@ router = APIRouter(
 )
 
 
-@router.post("/login", response_model=Token)
+@router.post("/login", response_model=Token, tags=["Auth"])
 async def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
     settings: Settings = Depends(get_settings)
@@ -35,7 +35,7 @@ async def login(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/signup", status_code=201, response_model=User)
+@router.post("/signup", status_code=201, response_model=User, tags=["Auth"])
 async def signup(user: User):
     user.password = get_password_hash(user.password)
     return await user.create()

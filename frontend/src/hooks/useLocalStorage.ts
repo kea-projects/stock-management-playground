@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { decryptObj, encryptObj } from '../util/crypto-util'
+import { decryptObj, encryptObj } from '../util/cryptoUtil'
 
 export const useLocalStorage = <T>(
     key: string,
