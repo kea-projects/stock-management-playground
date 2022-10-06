@@ -1,7 +1,7 @@
 name: Build and test frontend
 on:
     pull_request:
-        branches: [development]
+        branches: [development, main]
 
 defaults:
   run:

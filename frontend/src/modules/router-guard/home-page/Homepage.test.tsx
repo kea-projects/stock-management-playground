@@ -1,10 +1,10 @@
 import { render } from '../../../test-utils/test-utils'
 import { screen } from '@testing-library/react'
-import { GuestRoute } from './GuestRoute'
+import { Homepage } from './Homepage'
 
 describe('Guest homepage', () => {
     test('checks if homepage for guest is render correctly', () => {
-        render(<GuestRoute />)
+        render(<Homepage />)
         screen.getByText('Sign in with your password')
     })
 })

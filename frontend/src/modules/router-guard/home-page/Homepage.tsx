@@ -5,9 +5,9 @@ import {
 } from '../../../provider/user-provider/UserProvider'
 import { Grid, GridItem, Hide, Show, VStack } from '@chakra-ui/react'
 import { Login } from '../../login/Login'
-import { WelcomeBox } from './WelcomeBox'
+import { WelcomeBox } from './welcome-box/WelcomeBox'
 
-export function GuestRoute() {
+export function Homepage() {
     const { setUserDetail } = useContext(UserContext)
 
     const onSuccess = (credentials: UserDetail) => {
