@@ -3,7 +3,7 @@ import { render, RenderOptions } from '@testing-library/react'
 import { ChakraProvider } from '@chakra-ui/react'
 import { theme } from '../theme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter } from 'react-router-dom'
 import {
     UserDetail,
     UserProvider,
@@ -79,21 +79,13 @@ const renderWithUseContextUser = (
 const RouterProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     return <BrowserRouter>{children}</BrowserRouter>
 }
-const renderWithRouter = (
-    ui: ReactElement,
-    options?: Omit<RenderOptions, 'wrapper'>
-) => render(ui, { wrapper: RouterProvider, ...options })
 
 const customRender = (
     ui: ReactElement,
     options?: Omit<RenderOptions, 'wrapper'>
 ) => render(ui, { wrapper: AllTheProviders, ...options })
 
-const renderWithPresetUrl = (
-    ui: ReactElement,
-    url: string,
-    queryParam: string
-) => {
+const renderWithRoute = (ui: ReactElement, url: string) => {
     const Wrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
         return (
             <QueryClientProvider
@@ -109,11 +101,7 @@ const renderWithPresetUrl = (
                     })
                 }
             >
-                <MemoryRouter initialEntries={[url]}>
-                    <Routes>
-                        <Route path={queryParam} element={children}></Route>
-                    </Routes>
-                </MemoryRouter>
+                <MemoryRouter initialEntries={[url]}>{children}</MemoryRouter>
             </QueryClientProvider>
         )
     }
@@ -122,8 +110,8 @@ const renderWithPresetUrl = (
 
 export {
     customRender as render,
-    renderWithRouter,
     renderWithUseContextUser,
     renderWithReactQuery,
-    renderWithPresetUrl,
+    renderWithRoute,
+    RouterProvider,
 }
