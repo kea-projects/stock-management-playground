@@ -8,6 +8,6 @@ router = APIRouter(
 )
 
 
-@router.get("/me")
+@router.get("/me", response_model=User, tags=["Users"])
 async def read_user_self(user: User = Depends(get_current_user)):
     return user
