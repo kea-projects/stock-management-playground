@@ -1,13 +1,10 @@
 from beanie import PydanticObjectId
 from fastapi import Depends, HTTPException, status
 from jose import jwt, JWTError
-from fastapi.security import OAuth2PasswordBearer
 
-from ..configs.settings import get_settings
+from ..configs.settings import get_settings, oauth2_scheme
 from ..models.user import User
 from ..models.token import TokenData
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
 async def get_user_by_username(username: str):
@@ -29,9 +26,11 @@ async def get_current_user(
                              algorithms=[settings.ALGORITHM])
         username: str = payload.get("sub")
         user_id: PydanticObjectId = payload.get("id")
+
         if username is None or user_id is None:
             raise credentials_exception
         token_data = TokenData(username=username, user_id=user_id)
+
     except JWTError:
         raise credentials_exception
 
