@@ -1,12 +1,14 @@
 from typing import List
 
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from ..models.wallet import Wallet
+from ..utils.auth import verify_token
 
 router = APIRouter(
-    prefix="/wallets"
+    prefix="/wallets",
+    dependencies=[Depends(verify_token)]
 )
 
 
