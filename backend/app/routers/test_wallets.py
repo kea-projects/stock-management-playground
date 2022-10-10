@@ -2,14 +2,14 @@ import pytest
 import pytest_asyncio
 
 from ..main import app
-from ..test_utils.test import get_test_environment, verify_token_override
+from ..test_utils.test import get_test_client, get_test_settings
+from ..test_utils.test import verify_token_override
 from ..utils.mongo import close_db, init_db
 from ..utils.auth import verify_token
 
 # Setting up the Test Client
-test_environment = get_test_environment()
-settings = test_environment["test_settings"]
-client = test_environment["test_client"]
+settings = get_test_settings()
+client = get_test_client()
 endpoint_prefix = "/wallets"
 
 # Overriding dependencies
