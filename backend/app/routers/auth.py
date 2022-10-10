@@ -1,7 +1,7 @@
 from ..models.token import Token
 from datetime import timedelta
 
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ..utils.auth import create_access_token, authenticate_user
@@ -9,6 +9,7 @@ from ..utils.auth import get_password_hash
 from ..utils.validators import matches_password
 from ..utils.custom_exceptions import insecure_password_exception
 from ..utils.custom_exceptions import user_already_exists_exception
+from ..utils.custom_exceptions import bad_credentials_exception
 from ..configs.settings import Settings, get_settings
 from ..models.user import User
 from ..services.user import user_exists
@@ -25,11 +26,7 @@ async def login(
 ):
     user = await authenticate_user(form_data.username, form_data.password)
     if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise bad_credentials_exception
     access_token_expires = timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
@@ -41,7 +38,7 @@ async def login(
 
 @router.post("/signup", status_code=201, response_model=User, tags=["Auth"])
 async def signup(user: User):
-    if user_exists(user.username):
+    if await user_exists(user.username):
         raise user_already_exists_exception
     if not matches_password(user.password):
         raise insecure_password_exception
