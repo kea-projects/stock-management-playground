@@ -1,23 +1,19 @@
-import os
-
 import pytest
 import pytest_asyncio
-from dotenv import dotenv_values
-from httpx import AsyncClient
 
 from ..main import app
-from ..configs.settings import get_settings
+from ..test_utils.test import get_test_environment, verify_token_override
 from ..utils.mongo import close_db, init_db
+from ..utils.auth import verify_token
 
 # Setting up the Test Client
-settings = get_settings()
-settings.config = {
-    **dotenv_values(".env.test"),
-    **os.environ,
-}
-client = AsyncClient(app=app, base_url="http://test")
-
+test_environment = get_test_environment()
+settings = test_environment["test_settings"]
+client = test_environment["test_client"]
 endpoint_prefix = "/wallets"
+
+# Overriding dependencies
+app.dependency_overrides[verify_token] = verify_token_override
 
 # Test Data
 test_id = None
