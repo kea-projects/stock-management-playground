@@ -32,8 +32,8 @@ async def authenticate_user(username: str, password: str):
 
 
 def create_access_token(data: dict,
+                        settings: Settings,
                         expires_delta: Union[timedelta, None] = None):
-    settings = get_settings()
     to_encode = data.copy()
 
     if expires_delta:
