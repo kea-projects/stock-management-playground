@@ -1,5 +1,5 @@
-from pydantic import validator
 from beanie import Document
+from pydantic import validator
 
 from ..utils.validators import matches_email
 

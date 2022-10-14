@@ -2,10 +2,10 @@ import pytest
 import pytest_asyncio
 
 from ..main import app
-from ..test_utils.test import get_test_client, get_test_settings
-from ..test_utils.test import verify_token_override
-from ..utils.mongo import close_db, init_db
+from ..test_utils.test import (get_test_client, get_test_settings,
+                               verify_token_override)
 from ..utils.auth import verify_token
+from ..utils.mongo import close_db, init_db
 
 # Setting up the Test Client
 settings = get_test_settings()

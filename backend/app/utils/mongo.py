@@ -2,8 +2,8 @@ import motor
 from beanie import init_beanie
 
 from ..configs.settings import Settings
-from ..models.wallet import Wallet
 from ..models.user import User
+from ..models.wallet import Wallet
 
 client = None
 

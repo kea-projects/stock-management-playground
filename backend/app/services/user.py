@@ -1,12 +1,12 @@
 from beanie import PydanticObjectId
 from fastapi import Depends
-from jose import jwt, JWTError, ExpiredSignatureError
+from jose import ExpiredSignatureError, JWTError, jwt
 
 from ..configs.settings import Settings, get_settings, oauth2_scheme
-from ..utils.custom_exceptions import credentials_exception
-from ..utils.custom_exceptions import expired_token_exception
-from ..models.user import User
 from ..models.token import TokenData
+from ..models.user import User
+from ..utils.custom_exceptions import (credentials_exception,
+                                       expired_token_exception)
 
 
 async def get_user_by_username(username: str):

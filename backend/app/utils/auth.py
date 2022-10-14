@@ -2,12 +2,12 @@ from datetime import datetime, timedelta
 from typing import Union
 
 from fastapi import Depends
+from jose import ExpiredSignatureError, jwt
 from passlib.context import CryptContext
-from jose import jwt, ExpiredSignatureError
 
-from ..configs.settings import oauth2_scheme, Settings, get_settings
-from ..utils.custom_exceptions import expired_token_exception
+from ..configs.settings import Settings, get_settings, oauth2_scheme
 from ..services.user import get_user_by_username
+from ..utils.custom_exceptions import expired_token_exception
 
 bcrypt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

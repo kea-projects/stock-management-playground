@@ -1,14 +1,14 @@
 import os
 from datetime import timedelta
-from beanie import PydanticObjectId
 
+from beanie import PydanticObjectId
 from dotenv import dotenv_values
 from httpx import AsyncClient
 
-from ..main import app
 from ..configs.settings import get_settings
+from ..main import app
 from ..models.user import User
-from ..utils.auth import get_password_hash, create_access_token
+from ..utils.auth import create_access_token, get_password_hash
 
 
 def get_test_settings():

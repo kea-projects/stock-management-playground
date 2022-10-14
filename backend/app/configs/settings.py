@@ -1,9 +1,9 @@
 import os
-
 from functools import lru_cache
+
 from dotenv import dotenv_values
-from pydantic import BaseSettings
 from fastapi.security import OAuth2PasswordBearer
+from pydantic import BaseSettings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 

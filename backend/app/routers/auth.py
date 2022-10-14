@@ -1,18 +1,18 @@
-from ..models.token import Token
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from ..utils.auth import create_access_token, authenticate_user
-from ..utils.auth import get_password_hash
-from ..utils.validators import matches_password
-from ..utils.custom_exceptions import insecure_password_exception
-from ..utils.custom_exceptions import user_already_exists_exception
-from ..utils.custom_exceptions import bad_credentials_exception
 from ..configs.settings import Settings, get_settings
+from ..models.token import Token
 from ..models.user import User
 from ..services.user import user_exists
+from ..utils.auth import (authenticate_user, create_access_token,
+                          get_password_hash)
+from ..utils.custom_exceptions import (bad_credentials_exception,
+                                       insecure_password_exception,
+                                       user_already_exists_exception)
+from ..utils.validators import matches_password
 
 router = APIRouter(
     prefix="/auth"

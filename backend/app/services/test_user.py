@@ -2,11 +2,10 @@ import pytest
 import pytest_asyncio
 
 from ..models.user import User
-from .user import get_current_user, get_user_by_username, user_exists
+from ..test_utils.test import get_test_settings, oauth2_scheme_override
+from ..utils.auth import get_password_hash, verify_password
 from ..utils.mongo import close_db, init_db
-from ..utils.auth import verify_password, get_password_hash
-from ..test_utils.test import get_test_settings
-from ..test_utils.test import oauth2_scheme_override
+from .user import get_current_user, get_user_by_username, user_exists
 
 # Setting up the Test Client
 settings = get_test_settings()

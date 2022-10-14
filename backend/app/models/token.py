@@ -1,5 +1,5 @@
-from pydantic import BaseModel
 from beanie import PydanticObjectId
+from pydantic import BaseModel
 
 
 class Token(BaseModel):

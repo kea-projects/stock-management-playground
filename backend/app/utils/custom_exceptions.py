@@ -1,4 +1,4 @@
-from fastapi import status, HTTPException
+from fastapi import HTTPException, status
 
 bad_credentials_exception = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,

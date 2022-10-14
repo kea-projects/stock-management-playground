@@ -1,7 +1,7 @@
 from typing import List
 
 from beanie import PydanticObjectId
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
 from ..models.wallet import Wallet
 from ..utils.auth import verify_token
