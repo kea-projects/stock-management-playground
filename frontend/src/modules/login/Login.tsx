@@ -2,7 +2,7 @@ import { Text, HStack, VStack, Link } from '@chakra-ui/react'
 import { SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { UserDetail } from '../../provider/user-provider/UserProvider'
-import { useLogin } from '../../api/hooks/useLogin'
+import { useAuth } from '../../api/hooks/useAuth'
 import { LoginForm } from './login-form/LoginForm'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ export interface LoginInputValues {
 }
 
 export function Login({ onSuccess }: LoginProps) {
-    const { mutate, isLoading } = useLogin()
+    const { mutate, isLoading } = useAuth()
     const [apiError, setApiError] = useState('')
     const onSubmit: SubmitHandler<LoginInputValues> = (
         input: LoginInputValues

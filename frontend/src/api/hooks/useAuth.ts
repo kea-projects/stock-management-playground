@@ -15,7 +15,7 @@ const useClient = () => {
     return loginApi
 }
 
-export const useLogin = () => {
+export const useAuth = () => {
     const client = useClient()
     return useMutation((signInDetails: LoginInputValues) => {
         return client

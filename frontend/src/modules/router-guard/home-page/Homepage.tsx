@@ -11,7 +11,6 @@ export function Homepage() {
     const { setUserDetail } = useContext(UserContext)
 
     const onSuccess = (credentials: UserDetail) => {
-        console.log(credentials)
         setUserDetail(credentials)
     }
 

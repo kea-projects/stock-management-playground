@@ -1,7 +1,7 @@
 import { HStack, Text, VStack } from '@chakra-ui/react'
 import { SubmitHandler } from 'react-hook-form'
 import { SignUpForm } from './sign-up-form/SignUpForm'
-import { useSignUp } from '../../api/hooks/useLogin'
+import { useSignUp } from '../../api/hooks/useAuth'
 import { useState } from 'react'
 
 export interface SignUpFormValues {
