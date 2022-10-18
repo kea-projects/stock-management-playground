@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: swagger-json
-          path: ./frontend/content.json
+          path: content.json
 
   build:
     name: build and test frontend development
@@ -74,6 +74,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: swagger-json
+
       - name: Generate client-api
         run: yarn swagger-generater:test
         shell: bash
