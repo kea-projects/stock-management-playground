@@ -38,8 +38,9 @@ jobs:
           ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
         run: |
           source .venv/bin/activate
-          uvicorn app.main:app & 
-          curl -o ./content.json http://localhost:8000/openapi.jso
+          uvicorn app.main:app &
+      - name: generate swagger json file
+        run: curl -o ./content.json http://127.0.0.1:8000/openapi.json
 
   build:
     name: build and test frontend development
