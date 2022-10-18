@@ -3,18 +3,52 @@ on:
     pull_request:
         branches: [development, main]
 
-defaults:
-  run:
-    working-directory: frontend
-
 jobs:
+
+  backend:
+    name: run backend
+    runs-on: ubuntu-latest
+    steps:
+      - working-directory: ./backend
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-username: ${{ secrets.MONGO_USER }}
+          mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+      - name: run
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITHM: ${{ secrets.ALGORITHM }}
+          ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+        run: |
+          source .venv/bin/activate
+          uvicorn app.main:app & 
+
   build:
     name: build and test frontend development
+    needs: backend
     runs-on: ubuntu-latest
     env:
       environment: dev
 
     steps:
+      - working-directory: ./frontend
       - name: Checkout
         uses: actions/checkout@v2
 
