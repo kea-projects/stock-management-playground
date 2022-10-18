@@ -2,7 +2,7 @@ import { Text, HStack, VStack, Link } from '@chakra-ui/react'
 import { SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { UserDetail } from '../../provider/user-provider/UserProvider'
-import { useLoginPost } from '../../api/hooks/useLoginPost'
+import { useAuth } from '../../api/hooks/useAuth'
 import { LoginForm } from './login-form/LoginForm'
 import { Link as RouterLink } from 'react-router-dom'
 
@@ -15,8 +15,9 @@ export interface LoginInputValues {
     password: string
     rememberMe: boolean
 }
+
 export function Login({ onSuccess }: LoginProps) {
-    const { mutate, isLoading } = useLoginPost()
+    const { mutate, isLoading } = useAuth()
     const [apiError, setApiError] = useState('')
     const onSubmit: SubmitHandler<LoginInputValues> = (
         input: LoginInputValues
@@ -26,7 +27,10 @@ export function Login({ onSuccess }: LoginProps) {
             {
                 onSuccess: (response) => {
                     setApiError('')
-                    onSuccess(response)
+                    onSuccess({
+                        token: response.data.access_token,
+                        tokenType: response.data.token_type,
+                    })
                 },
                 onError: () => {
                     setApiError('Invalid credentials, please try again')

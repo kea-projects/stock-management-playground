@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { routes } from '../../../routes'
-import { emailValidation } from '../../../util/email-validation'
+import { emailValidation } from '../../../util/emailValidation'
 
 interface SignUpFormProps {
     isLoading: boolean
