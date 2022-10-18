@@ -2,9 +2,7 @@ name: Build and test frontend
 on:
     pull_request:
         branches: [development, main]
-
 jobs:
-
   backend:
     name: run backend
     runs-on: ubuntu-latest
@@ -39,7 +37,6 @@ jobs:
         run: |
           source .venv/bin/activate
           uvicorn app.main:app & 
-
   build:
     name: build and test frontend development
     needs: backend
