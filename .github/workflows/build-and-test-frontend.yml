@@ -70,6 +70,10 @@ jobs:
         run: yarn install --frozen-lockfile
         shell: bash
 
+      - name: Download swagger json file
+        uses: actions/download-artifact@v3
+        with:
+          name: swagger-json
       - name: Generate client-api
         run: yarn swagger-generater:test
         shell: bash
