@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: swagger-json
-          path: content.json
+          path: ./backend/content.json
 
   build:
     name: build and test frontend development
