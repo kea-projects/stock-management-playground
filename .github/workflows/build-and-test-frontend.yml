@@ -41,6 +41,11 @@ jobs:
           uvicorn app.main:app &
       - name: generate swagger json file
         run: curl -o ./content.json http://127.0.0.1:8000/openapi.json
+      - name: Upload swagger json file
+        uses: actions/upload-artifact@v3
+        with:
+          name: swagger-json
+          path: ./frontend/content.json
 
   build:
     name: build and test frontend development
