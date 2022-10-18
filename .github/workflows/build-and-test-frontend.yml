@@ -42,9 +42,6 @@ jobs:
       - name: generate swagger json file
         run: curl -o ./content.json http://127.0.0.1:8000/openapi.json
 
-      - name: checks location
-        run: ls
-
       - name: Upload swagger json file
         uses: actions/upload-artifact@v3
         with:
@@ -78,6 +75,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: swagger-json
+
+      - name: checks location
+        run: ls
 
       - name: Generate client-api
         run: yarn swagger-generater:test
