@@ -1,11 +1,10 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from .configs.settings import get_settings
-from .routers import wallets
-from .routers import users
-from .routers import auth
+from .routers import auth, users, wallets
 from .utils.mongo import init_db
 
 app = FastAPI()
