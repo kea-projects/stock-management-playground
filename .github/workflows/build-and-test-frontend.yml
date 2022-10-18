@@ -39,6 +39,8 @@ jobs:
         run: |
           source .venv/bin/activate
           uvicorn app.main:app & 
+          curl -o ./content.json http://localhost:8000/openapi.jso
+
   build:
     name: build and test frontend development
     needs: backend
