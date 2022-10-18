@@ -63,7 +63,7 @@ jobs:
         shell: bash
 
       - name: Generate client-api
-        run: yarn swagger-generate:test
+        run: yarn swagger-generater:test
         shell: bash
 
       - name: Run ESLint
