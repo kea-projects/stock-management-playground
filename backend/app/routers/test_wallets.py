@@ -31,6 +31,8 @@ test_updated_wallet = {
     "balance": test_updated_balance
 }
 
+test_not_found_error = "Wallet not found!"
+
 
 @pytest_asyncio.fixture(autouse=True)
 async def run_around_tests():
@@ -103,7 +105,7 @@ async def test_delete_wallet_not_found():
 
     assert response.status_code == 404, response.text
     data = response.json()
-    assert data["detail"] == "Wallet not found!"
+    assert data["detail"] == test_not_found_error
 
 
 @pytest.mark.asyncio
@@ -113,4 +115,13 @@ async def test_update_wallet_not_found():
 
     assert response.status_code == 404, response.text
     data = response.json()
-    assert data["detail"] == "Wallet not found!"
+    assert data["detail"] == test_not_found_error
+
+
+@pytest.mark.asyncio
+async def test_get_wallet_by_id_not_found():
+    response = await client.get(f"{endpoint_prefix}/{test_id}")
+
+    assert response.status_code == 404, response.text
+    data = response.json()
+    assert data["detail"] == test_not_found_error
