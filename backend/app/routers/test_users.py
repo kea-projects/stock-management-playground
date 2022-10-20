@@ -50,7 +50,7 @@ async def run_around_tests():
 
 
 @pytest.mark.asyncio
-async def test_read_user_self():
+async def test_self_read_user():
     response = await client.get(f"{endpoint_prefix}/me")
 
     assert response.status_code == 200, response.text
