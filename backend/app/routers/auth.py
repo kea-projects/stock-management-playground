@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from ..configs.settings import Settings, get_settings
 from ..models.token import Token
 from ..models.user import User
-from ..services.user import user_exists
+from ..repos.user import user_exists_by_username
 from ..utils.auth import (authenticate_user, create_access_token,
                           get_password_hash)
 from ..utils.custom_exceptions import (bad_credentials_exception,
@@ -39,7 +39,7 @@ async def login(
 
 @router.post("/signup", status_code=201, response_model=User, tags=["Auth"])
 async def signup(user: User):
-    if await user_exists(user.username):
+    if await user_exists_by_username(user.username):
         raise user_already_exists_exception
     if not matches_password(user.password):
         raise insecure_password_exception

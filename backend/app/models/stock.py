@@ -11,3 +11,5 @@ class Stock(Document):
     description: Optional[str]
     percentage_change: Optional[float]
     last_updated: date
+
+    # TODO: Discuss about validation constraints for the Stock model.

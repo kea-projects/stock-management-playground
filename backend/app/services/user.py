@@ -4,20 +4,9 @@ from jose import ExpiredSignatureError, JWTError, jwt
 
 from ..configs.settings import Settings, get_settings, oauth2_scheme
 from ..models.token import TokenData
-from ..models.user import User
+from ..repos.user import get_user_by_username
 from ..utils.custom_exceptions import (credentials_exception,
                                        expired_token_exception)
-
-
-async def get_user_by_username(username: str):
-    return await User.find_one(User.username == username)
-
-
-async def user_exists(username: str):
-    user = await User.find_one(User.username == username)
-    if user is not None:
-        return True
-    return False
 
 
 async def get_current_user(
