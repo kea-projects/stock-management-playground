@@ -12,6 +12,21 @@ router = APIRouter(
 )
 
 
+# TODO: Implement actual functionality
+@router.get("/me", response_model=List[Wallet], tags=["Wallets"])
+async def read_self_wallets():
+    return await Wallet.find_all.to_list()
+
+
+# TODO: Implement actual functionality
+@router.get("/me/{wallet_id}", response_model=Wallet, tags=["Wallets"])
+async def read_self_wallets_by_id(wallet_id: PydanticObjectId):
+    return await Wallet.get(wallet_id)
+
+
+#  --- CRUD ---
+
+
 @router.get("/", response_model=List[Wallet], tags=["Wallets"])
 async def read_wallets():
     return await Wallet.find_all().to_list()
