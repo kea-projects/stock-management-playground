@@ -11,7 +11,9 @@ export const AxiosPlayer = ({ children }: AxiosAdminProps) => {
     axiosInstance.interceptors.request.use(
         async (config) => {
             if (config && config.headers) {
-                config.headers['Authorization'] = `Bearer ${userDetail.token}`
+                config.headers[
+                    'Authorization'
+                ] = `${userDetail.tokenType} ${userDetail.token}`
             }
             return config
         },
