@@ -4,6 +4,7 @@ import pytest_asyncio
 from ..main import app
 from ..test_utils.test import (get_test_client, get_test_settings,
                                verify_token_override)
+from ..models.user import User
 from ..utils.auth import verify_token
 from ..utils.mongo import close_db, init_db
 
@@ -31,6 +32,10 @@ test_updated_wallet = {
     "balance": test_updated_balance
 }
 
+test_full_name = "Test User"
+test_password = "testPassword123!"
+test_username = "test@user.pass"
+
 test_not_found_error = "Wallet not found!"
 
 
@@ -40,12 +45,24 @@ async def run_around_tests():
     await init_db(settings)
     yield
     # Code that will run after your test, for example:
+    await User.delete_all()
     close_db()
 
 
 @pytest.mark.asyncio
 async def test_create_wallet():
-    response = await client.post(f"{endpoint_prefix}/", json=test_wallet)
+    user = await User(
+        full_name=test_full_name,
+        username=test_username,
+        password=test_password
+    ).create()
+    wallet_data = {
+        "nickname": test_nickname,
+        "balance": test_balance,
+        "user_id": str(user.id)
+    }
+
+    response = await client.post(f"{endpoint_prefix}/", json=wallet_data)
 
     assert response.status_code == 201, response.text
     data = response.json()
@@ -62,7 +79,7 @@ async def test_read_wallets():
 
     assert response.status_code == 200, response.text
     data = response.json()
-    print(data)
+    
     assert data == [
         {"_id": test_id, "nickname": test_nickname, "balance": test_balance}]
 

@@ -4,9 +4,11 @@ from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
 from ..models.wallet import Wallet
+from ..dtos.create_wallet_data import CreateWalletData
 from ..services.wallet import delete_wallet as delete
 from ..services.wallet import get_wallet_by_id
 from ..services.wallet import update_wallet as update
+from ..services.wallet import create_wallet as create
 from ..utils.auth import verify_token
 
 router = APIRouter(
@@ -41,8 +43,8 @@ async def read_wallet_by_id(wallet_id: PydanticObjectId):
 
 
 @router.post("/", status_code=201, response_model=Wallet, tags=["Wallets"])
-async def create_wallet(wallet: Wallet):
-    return await wallet.create()
+async def create_wallet(wallet_data: CreateWalletData):
+    return await create(wallet_data=wallet_data)
 
 
 @router.patch("/{wallet_id}", response_model=Wallet, tags=["Wallets"])
