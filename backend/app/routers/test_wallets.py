@@ -79,7 +79,7 @@ async def test_read_wallets():
 
     assert response.status_code == 200, response.text
     data = response.json()
-    
+
     assert data == [
         {"_id": test_id, "nickname": test_nickname, "balance": test_balance}]
 
