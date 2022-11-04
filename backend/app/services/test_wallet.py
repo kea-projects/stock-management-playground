@@ -8,6 +8,7 @@ from ..dtos.create_wallet_data import CreateWalletData
 from ..test_utils.test import get_test_settings
 from ..utils.mongo import close_db, init_db
 from .wallet import delete_wallet, get_wallet_by_id, update_wallet
+from .wallet import get_user_wallet_by_id
 from .wallet import create_wallet
 
 # Setting up the Test Client
@@ -57,6 +58,68 @@ async def test_get_wallet_by_id():
 async def test_get_wallet_by_id_wrong_id():
     with pytest.raises(Exception):
         await get_wallet_by_id(wallet_id=PydanticObjectId())
+
+
+@pytest.mark.asyncio
+async def test_get_user_wallet_by_id():
+    test_user = await User(
+        full_name=test_full_name,
+        username=test_username,
+        password=test_password
+    ).create()
+    wallet_data = CreateWalletData(
+        nickname=test_nickname,
+        balance=test_balance,
+        user_id=test_user.id
+    )
+    test_wallet = await create_wallet(wallet_data=wallet_data)
+
+    response = await get_user_wallet_by_id(
+        wallet_id=test_wallet.id,
+        user=await User.get(test_user.id)
+    )
+
+    assert response
+
+    assert response.nickname == test_nickname
+    assert response.balance == test_balance
+    assert response.id == test_wallet.id
+
+
+@pytest.mark.asyncio
+async def test_get_user_wallet_by_id_wrong_id():
+    with pytest.raises(Exception):
+        test_user = await User(
+            full_name=test_full_name,
+            username=test_username,
+            password=test_password
+        ).create()
+        wallet_data = CreateWalletData(
+            nickname=test_nickname,
+            balance=test_balance,
+            user_id=test_user.id
+        )
+        await create_wallet(wallet_data=wallet_data)
+
+        await get_user_wallet_by_id(
+            wallet_id=PydanticObjectId(),
+            user=test_user
+        )
+
+
+@pytest.mark.asyncio
+async def test_get_user_wallet_by_id_no_wallets():
+    with pytest.raises(Exception):
+        test_user = await User(
+            full_name=test_full_name,
+            username=test_username,
+            password=test_password
+        ).create()
+
+        await get_user_wallet_by_id(
+            wallet_id=PydanticObjectId(),
+            user=test_user
+        )
 
 
 @pytest.mark.asyncio

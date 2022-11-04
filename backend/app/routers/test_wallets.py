@@ -1,10 +1,13 @@
 import pytest
 import pytest_asyncio
+from beanie import PydanticObjectId
 
 from ..main import app
-from ..test_utils.test import (get_test_client, get_test_settings,
-                               verify_token_override)
+from ..test_utils.test import (get_test_client, get_current_user_override,
+                               verify_token_override, get_test_settings)
 from ..models.user import User
+from ..models.wallet import Wallet
+from ..services.user import get_current_user
 from ..utils.auth import verify_token
 from ..utils.mongo import close_db, init_db
 
@@ -14,10 +17,28 @@ client = get_test_client()
 endpoint_prefix = "/wallets"
 
 # Overriding dependencies
+
+
+async def get_current_user_wrapper():
+    return await get_current_user_override(
+        full_name=test_full_name,
+        username=test_username,
+        password=test_password,
+        wallets=[
+            Wallet(
+                nickname=test_nickname,
+                balance=test_balance,
+                id=test_user_wallet_id
+            )
+        ]
+    )
+
 app.dependency_overrides[verify_token] = verify_token_override
+app.dependency_overrides[get_current_user] = get_current_user_wrapper
 
 # Test Data
 test_id = None
+test_user_wallet_id = PydanticObjectId()
 test_nickname = "Test Wallet"
 test_balance = 3000
 test_wallet = {
@@ -47,6 +68,40 @@ async def run_around_tests():
     # Code that will run after your test, for example:
     await User.delete_all()
     close_db()
+
+
+@pytest.mark.asyncio
+async def test_read_self_wallets():
+    response = await client.get(f"{endpoint_prefix}/me")
+    await Wallet.delete_all()
+
+    assert response.status_code == 200, response.text
+    data = response.json()
+
+    assert data == [
+        {
+            "_id": str(test_user_wallet_id),
+            "nickname": test_nickname,
+            "balance": test_balance
+        }
+    ]
+
+
+@pytest.mark.asyncio
+async def test_read_self_wallet_by_id():
+    response = await client.get(
+        f"{endpoint_prefix}/me/{str(test_user_wallet_id)}"
+    )
+    await Wallet.delete_all()
+
+    assert response.status_code == 200, response.text
+    data = response.json()
+
+    assert data == {
+        "_id": str(test_user_wallet_id),
+        "nickname": test_nickname,
+        "balance": test_balance
+    }
 
 
 @pytest.mark.asyncio

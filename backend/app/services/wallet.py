@@ -16,9 +16,23 @@ async def get_wallet_by_id(wallet_id: PydanticObjectId):
         raise wallet_not_found_exception
 
 
+async def get_user_wallet_by_id(wallet_id: PydanticObjectId, user: User):
+    await user.fetch_link(User.wallets)
+
+    wallets = list(
+        filter(lambda wallet: wallet.id == wallet_id, user.wallets)
+    )
+    print(wallets)
+
+    if len(wallets) == 1:
+        return wallets[0]
+    else:
+        raise wallet_not_found_exception
+
+
 async def create_wallet(wallet_data: CreateWalletData):
     user = await User.get(wallet_data.user_id)
-    print(user)
+
     if user is not None:
         wallet = Wallet(
             balance=wallet_data.balance,
