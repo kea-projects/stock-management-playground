@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from typing import Optional
 
 from beanie import Document
@@ -10,6 +10,6 @@ class Stock(Document):
     current_price: Optional[float]
     description: Optional[str]
     percentage_change: Optional[float]
-    last_updated: date
+    last_updated: datetime = datetime.now()
 
     # TODO: Discuss about validation constraints for the Stock model.
