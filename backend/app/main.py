@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 
 from .configs.settings import get_settings
-from .routers import auth, stocks, users, wallets
+from .routers import auth, stocks, users, wallets, stock_entries
 from .utils.mongo import init_db
 
 app = FastAPI()
@@ -25,6 +25,7 @@ async def init():
 
 app.include_router(wallets.router)
 app.include_router(stocks.router)
+app.include_router(stock_entries.router)
 app.include_router(users.router)
 app.include_router(auth.router)
 

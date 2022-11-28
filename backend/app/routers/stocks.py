@@ -4,7 +4,7 @@ from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
 from ..models.stock import Stock
-from ..services.stock import link_stocks_to_wallet, get_wallet_stocks_by_id
+from ..services.stock import get_stock_by_id
 from ..utils.auth import verify_token
 
 router = APIRouter(
@@ -13,24 +13,14 @@ router = APIRouter(
 )
 
 
-@router.get("/wallet/{wallet_id}", response_model=List[Stock], tags=["Stocks"])
-async def read_wallet_stocks_by_id(wallet_id: PydanticObjectId):
-    return await get_wallet_stocks_by_id(wallet_id)
+@router.get("/", response_model=List[Stock], tags=["Stocks"])
+async def read_stocks():
+    return await Stock.find_all().to_list()
 
 
-@router.post(
-    "/wallet/{wallet_id}",
-    response_model=List[Stock],
-    tags=["Stocks"]
-)
-async def add_wallet_stocks_by_id(
-    wallet_id: PydanticObjectId,
-    stock_ids: List[PydanticObjectId]
-):
-    return await link_stocks_to_wallet(
-        wallet_id=wallet_id,
-        stock_ids=stock_ids
-    )
+@router.get("/{stock_id}", response_model=Stock, tags=["Stocks"])
+async def read_stock_by_id(stock_id: PydanticObjectId):
+    return await get_stock_by_id(stock_id)
 
 
 @router.post("/", status_code=201, response_model=Stock, tags=["Stocks"])

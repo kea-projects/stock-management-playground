@@ -49,3 +49,17 @@ wallet_not_found_exception = HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,
     detail="Wallet not found!"
 )
+
+# --- Stock Exceptions ---
+
+stock_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock not found!"
+)
+
+# --- Stock Entry Exceptions ---
+
+stock_entry_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock Entry not found!"
+)
