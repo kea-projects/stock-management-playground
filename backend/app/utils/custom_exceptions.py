@@ -36,6 +36,11 @@ user_already_exists_exception = HTTPException(
     detail="Username already taken."
 )
 
+user_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="User not found!"
+)
+
 
 # --- Wallet Exceptions ---
 
@@ -43,4 +48,26 @@ user_already_exists_exception = HTTPException(
 wallet_not_found_exception = HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,
     detail="Wallet not found!"
+)
+
+# --- Stock Exceptions ---
+
+stock_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock not found!"
+)
+
+# --- Stock Entry Exceptions ---
+
+stock_entry_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock Entry not found!"
+)
+
+
+# --- Finnhub Exceptions ---
+
+finnhub_too_many_requests_exception = HTTPException(
+    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+    detail="Too many requests!"
 )
