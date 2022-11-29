@@ -18,11 +18,11 @@ async def init_db(settings: Settings):
     )
     await init_beanie(database=client.stock_management_playground,
                       document_models=[Wallet, User, Stock, StockEntry])
-    print("MongoDB initialized!")
+    print("Mongo Util > MongoDB initialized!")
 
 
 def close_db():
     global client
     if (client is not None):
         client.close()
-        print("MongoDB closed!")
+        print("Mongo Util > MongoDB closed!")

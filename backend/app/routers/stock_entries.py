@@ -30,6 +30,8 @@ async def read_stock_entries():
     return await StockEntry.find_all().to_list()
 
 
+# TODO: Substract price from balance
+# TODO: Only allow to create an entry into auth user's wallets
 @router.post(
     "/", status_code=201,
     response_model=StockEntry,
@@ -37,3 +39,9 @@ async def read_stock_entries():
 )
 async def create_stock_entry(stock_entry_data: CreateStockEntryData):
     return await create(stock_entry_data=stock_entry_data)
+
+# TODO: Add buy more endpoint -> price will be an average
+
+
+# TODO: Add sell entry endpoint
+# TODO: Only allow to sell an entry from auth user's wallets

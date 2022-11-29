@@ -63,3 +63,11 @@ stock_entry_not_found_exception = HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,
     detail="Stock Entry not found!"
 )
+
+
+# --- Finnhub Exceptions ---
+
+finnhub_too_many_requests_exception = HTTPException(
+    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+    detail="Too many requests!"
+)

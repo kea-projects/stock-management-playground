@@ -1,7 +1,9 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 from beanie import Document
+
+from .stock_history import StockHistory
 
 
 class Stock(Document):
@@ -11,5 +13,8 @@ class Stock(Document):
     description: Optional[str]
     percentage_change: Optional[float]
     last_updated: datetime = datetime.now()
+    history: List[StockHistory] = []
+    external_fetch: bool = False
 
     # TODO: Discuss about validation constraints for the Stock model.
+ 
