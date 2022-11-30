@@ -15,6 +15,8 @@ beforeAll(() => {
         removeEventListener: jest.fn(),
         dispatchEvent: jest.fn(),
     })
+    window.scrollTo = jest.fn()
 })
 beforeEach(() => server.listen())
 afterEach(() => server.close())
+afterAll(() => jest.clearAllMocks())

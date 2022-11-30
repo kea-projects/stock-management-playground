@@ -8,6 +8,7 @@ import {
     UserDetail,
     UserProvider,
 } from '../provider/user-provider/UserProvider'
+import { AxiosPlayer } from '../components/axios-player/AxiosPlayer'
 
 const AllTheProviders: FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
@@ -108,10 +109,27 @@ const renderWithRoute = (ui: ReactElement, url: string) => {
     return render(<Wrapper>{ui}</Wrapper>)
 }
 
+const renderWithAxiosContext = (
+    ui: ReactElement,
+    userDetail: UserDetail = {}
+) => {
+    const Wrapper: FC<{ children: React.ReactNode }> = ({ children }) => {
+        return (
+            <UserProvider value={userDetail}>
+                <AxiosPlayer>
+                    <>{children}</>
+                </AxiosPlayer>
+            </UserProvider>
+        )
+    }
+    return customRender(<Wrapper>{ui}</Wrapper>)
+}
+
 export {
     customRender as render,
     renderWithUseContextUser,
     renderWithReactQuery,
     renderWithRoute,
     RouterProvider,
+    renderWithAxiosContext,
 }

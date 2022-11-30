@@ -21,6 +21,7 @@ export const useLocalStorage = <T>(
             try {
                 const valueToStore =
                     value instanceof Function ? value(storedValue) : value
+
                 setStoredValue(valueToStore)
                 window.localStorage.setItem(key, encryptObj(valueToStore))
             } catch (error) {
