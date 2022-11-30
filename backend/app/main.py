@@ -28,7 +28,7 @@ async def init():
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60)
+@repeat_every(seconds=60 * 5)
 async def fetch_tracked_stocks():
     await fetch_stock_list(await get_stock_symbols())
 

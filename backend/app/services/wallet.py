@@ -22,7 +22,6 @@ async def get_user_wallet_by_id(wallet_id: PydanticObjectId, user: User):
     wallets = list(
         filter(lambda wallet: wallet.id == wallet_id, user.wallets)
     )
-    print(wallets)
 
     if len(wallets) == 1:
         return wallets[0]
@@ -35,7 +34,6 @@ async def create_wallet(wallet_data: CreateWalletData):
 
     if user is not None:
         wallet = Wallet(
-            balance=wallet_data.balance,
             nickname=wallet_data.nickname
         )
 
