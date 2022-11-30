@@ -77,7 +77,7 @@ stock_entry_amount_too_high_exception = HTTPException(
 
 # --- Finnhub Exceptions ---
 
-finnhub_too_many_requests_exception = HTTPException(
-    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-    detail="Too many requests!"
+finnhub_exception = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Finnhub exception!"
 )
