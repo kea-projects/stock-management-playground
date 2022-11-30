@@ -1,0 +1,96 @@
+name: Build and test frontend
+on:
+    pull_request:
+        branches: [development, main]
+jobs:
+  backend:
+    name: run backend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-username: ${{ secrets.MONGO_USER }}
+          mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+      - name: run
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITHM: ${{ secrets.ALGORITHM }}
+          ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+        run: |
+          source .venv/bin/activate
+          uvicorn app.main:app &
+      - name: generate swagger json file
+        run: curl -o ./content.json http://127.0.0.1:8000/openapi.json
+
+      - name: Upload swagger json file
+        uses: actions/upload-artifact@v3
+        with:
+          name: swagger-json
+          path: ./backend/content.json
+
+  build:
+    name: build and test frontend development
+    needs: backend
+    runs-on: ubuntu-latest
+    env:
+      environment: dev
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+
+      - name: Download swagger json file
+        uses: actions/download-artifact@v3
+        with:
+          name: swagger-json
+          path: ./frontend
+
+      - name: checks location
+        run: ls
+
+      - name: Generate client-api
+        run: yarn swagger-generater:test
+        shell: bash
+
+      - name: Run ESLint
+        run: yarn eslint .
+
+      - name: Build
+        run: yarn build
+        shell: bash
+
+      - name: Test
+        run: yarn test
+        shell: bash

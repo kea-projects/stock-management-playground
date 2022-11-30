@@ -1,0 +1,70 @@
+name: Test backend
+on:
+  pull_request:
+    branches: [development]
+
+defaults:
+  run:
+    working-directory: backend
+
+jobs:
+  lint:
+    name: Check code quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Linting
+        uses: weibullguy/python-lint-plus@master
+        with:
+          use-pydocstyle: false
+          use-mypy: false
+          use-pylint: false
+          use-rstcheck: false
+          use-check-manifest: false
+          use-pyroma: false
+          extra-pycodestyle-options: "--exclude .venv"
+          extra-flake8-options: "--exclude .venv"
+
+  test:
+    name: Test backend development
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-username: ${{ secrets.MONGO_USER }}
+          mongodb-password: ${{ secrets.MONGO_PASSWORD }}
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+      - name: Test with pytest
+        env:
+          MONGO_USER: ${{ secrets.MONGO_USER }}
+          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+          MONGO_HOST: ${{ secrets.MONGO_HOST }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ALGORITHM: ${{ secrets.ALGORITHM }}
+          ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+        run: |
+          source .venv/bin/activate
+          pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report
+          py.test -v --cov --html=reports/pytest/report.html
