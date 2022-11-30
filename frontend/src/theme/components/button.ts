@@ -14,5 +14,14 @@ export const Button = {
                 opacity: 1,
             },
         },
+        nonStyle: {
+            background: 'none',
+            color: 'inherit',
+            border: 'none',
+            padding: 0,
+            font: 'inherit',
+            cursor: 'pointer',
+            outline: 'inherit',
+        },
     },
 }
