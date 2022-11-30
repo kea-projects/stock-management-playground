@@ -1,6 +1,5 @@
-
 from pydantic import BaseModel
 
 
-class SellFromStockEntryData(BaseModel):
+class AmountData(BaseModel):
     amount: float

@@ -5,6 +5,7 @@ from ..models.user import User
 from ..dtos.create_wallet_data import CreateWalletData
 from ..utils.custom_exceptions import wallet_not_found_exception
 from ..utils.custom_exceptions import user_not_found_exception
+from ..utils.custom_exceptions import stock_entry_not_found_exception
 
 
 async def get_wallet_by_id(wallet_id: PydanticObjectId):
@@ -27,6 +28,20 @@ async def get_user_wallet_by_id(wallet_id: PydanticObjectId, user: User):
         return wallets[0]
     else:
         raise wallet_not_found_exception
+
+
+async def get_user_wallet_containing_stock_entry(
+    user: User,
+    stock_entry_id: PydanticObjectId
+):
+
+    await user.fetch_link(User.wallets)
+    for wallet in user.wallets:
+        await wallet.fetch_link(Wallet.stock_entries)
+        for stock_entry in wallet.stock_entries:
+            if stock_entry.id == stock_entry_id:
+                return wallet
+    raise stock_entry_not_found_exception
 
 
 async def create_wallet(wallet_data: CreateWalletData):

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from ..models.stock import Stock
 from ..services.stock import get_stock_by_id
 from ..services.finnhub import fetch_stock_quote, get_stock_symbols
-from ..services.finnhub import get_external_fetch_stocks
+from ..services.finnhub import get_external_stocks
 from ..utils.auth import verify_token
 
 router = APIRouter(
@@ -31,7 +31,7 @@ async def read_stock_by_id(stock_id: PydanticObjectId):
     tags=["Stocks", "Finnhub"]
 )
 async def read_stock_by_symbol(stock_symbol: str):
-    return await fetch_stock_quote(symbol=stock_symbol, random=True)
+    return await fetch_stock_quote(symbol=stock_symbol)
 
 
 @router.get("/symbols/", response_model=List[str], tags=["Stocks", "Finnhub"])
@@ -45,7 +45,7 @@ async def read_stock_symbols():
     tags=["Stocks", "Finnhub"]
 )
 async def read_external_fetch_stocks():
-    return await get_external_fetch_stocks()
+    return await get_external_stocks()
 
 
 @router.post("/", status_code=201, response_model=Stock, tags=["Stocks"])

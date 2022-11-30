@@ -6,8 +6,7 @@ from fastapi import APIRouter, Depends
 from ..models.stock_entry import StockEntry
 from ..models.user import User
 from ..dtos.create_stock_entry_data import CreateStockEntryData
-from ..dtos.add_to_stock_entry_data import AddToStockEntryData
-from ..dtos.sell_from_stock_entry_dto import SellFromStockEntryData
+from ..dtos.amount_data import AmountData
 from ..services.stock_entry import create_stock_entry as create
 from ..services.stock_entry import get_wallet_stock_entries, add_to_stock_entry
 from ..services.stock_entry import sell_from_stock_entry
@@ -57,12 +56,12 @@ async def create_stock_entry(
 )
 async def buy_more_stock_entry(
     stock_entry_id: PydanticObjectId,
-    add_to_stock_entry_data: AddToStockEntryData,
+    amount_data: AmountData,
     user: User = Depends(get_current_user)
 ):
     return await add_to_stock_entry(
         stock_entry_id=stock_entry_id,
-        add_to_stock_entry_data=add_to_stock_entry_data,
+        amount_data=amount_data,
         user=user
     )
 
@@ -73,11 +72,11 @@ async def buy_more_stock_entry(
 )
 async def sell_amount_of_stock_entry(
     stock_entry_id: PydanticObjectId,
-    data: SellFromStockEntryData,
+    amount_data: AmountData,
     user: User = Depends(get_current_user)
 ):
     return await sell_from_stock_entry(
         stock_entry_id=stock_entry_id,
-        data=data,
+        amount_data=amount_data,
         user=user
     )
