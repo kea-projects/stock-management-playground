@@ -4,10 +4,10 @@ from fastapi.responses import RedirectResponse
 from fastapi_utils.tasks import repeat_every
 
 from .configs.settings import get_settings
+from .services.stock import get_stock_symbols
+from .services.finnhub import fetch_stocks_from_list
 from .routers import auth, stocks, users, wallets, stock_entries
 from .utils.mongo import init_db
-
-from .services.finnhub import fetch_stock_list, get_stock_symbols
 
 app = FastAPI()
 
@@ -28,9 +28,9 @@ async def init():
 
 
 @app.on_event("startup")
-@repeat_every(seconds=60)
+@repeat_every(seconds=60 * 5)
 async def fetch_tracked_stocks():
-    await fetch_stock_list(await get_stock_symbols())
+    await fetch_stocks_from_list(await get_stock_symbols())
 
 
 app.include_router(wallets.router)

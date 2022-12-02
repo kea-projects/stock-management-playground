@@ -46,7 +46,6 @@ async def read_wallet_by_id(wallet_id: PydanticObjectId):
     return await get_wallet_by_id(wallet_id=wallet_id)
 
 
-# TODO: Cannot create a wallet with balance
 @router.post("/", status_code=201, response_model=Wallet, tags=["Wallets"])
 async def create_wallet(wallet_data: CreateWalletData):
     return await create(wallet_data=wallet_data)

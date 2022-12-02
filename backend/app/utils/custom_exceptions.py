@@ -50,6 +50,12 @@ wallet_not_found_exception = HTTPException(
     detail="Wallet not found!"
 )
 
+
+wallet_not_enough_funds_exception = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Not enough funds for transaction!"
+)
+
 # --- Stock Exceptions ---
 
 stock_not_found_exception = HTTPException(
@@ -64,10 +70,14 @@ stock_entry_not_found_exception = HTTPException(
     detail="Stock Entry not found!"
 )
 
+stock_entry_amount_too_high_exception = HTTPException(
+    status_code=status.HTTP_406_NOT_ACCEPTABLE,
+    detail="Stock Entry requested amount too high!"
+)
 
 # --- Finnhub Exceptions ---
 
-finnhub_too_many_requests_exception = HTTPException(
-    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-    detail="Too many requests!"
+finnhub_exception = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Finnhub exception!"
 )
