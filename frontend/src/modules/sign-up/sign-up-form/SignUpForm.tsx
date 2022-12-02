@@ -86,7 +86,7 @@ export function SignUpForm({ isLoading, apiError, onSubmit }: SignUpFormProps) {
                     </FormErrorMessage>
                 </FormControl>
 
-                <FormControl isInvalid={!!apiError}>
+                <FormControl isInvalid={!!apiError} maxWidth={'60%'}>
                     <FormErrorMessage>{apiError}</FormErrorMessage>
                 </FormControl>
                 <HStack>

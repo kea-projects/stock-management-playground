@@ -5,32 +5,38 @@ import {
     StatLabel,
     StatNumber,
     Spinner,
+    HStack,
 } from '@chakra-ui/react'
 import { useGetAllWalletsMe } from '../../../../../api/hooks/useWallets'
+import { DetailsBox } from '../../../../../components/details-box/DetailsBox'
 
 export function WalletsStatusCard() {
     const { data, isLoading } = useGetAllWalletsMe()
     return (
-        <Stat bg={'contentBoxColor'} p={10}>
-            <StatLabel fontSize="large">Wallets Overview</StatLabel>
-            <StatHelpText>Your available cash</StatHelpText>{' '}
-            <StatNumber fontSize="large">
-                {isLoading ? (
-                    <Spinner />
-                ) : (
-                    <>
-                        <Text>$</Text>
-                        {data?.reduce(
-                            (prevValue, currentValue) =>
-                                prevValue +
-                                (currentValue.balance
-                                    ? currentValue.balance
-                                    : 0),
-                            0
-                        )}
-                    </>
-                )}
-            </StatNumber>
-        </Stat>
+        <DetailsBox>
+            <Stat>
+                <StatLabel fontSize="large">Wallets Overview</StatLabel>
+                <StatHelpText>Your available cash</StatHelpText>{' '}
+                <StatNumber fontSize="large">
+                    {isLoading ? (
+                        <Spinner />
+                    ) : (
+                        <HStack>
+                            <Text>
+                                $
+                                {data?.reduce(
+                                    (prevValue, currentValue) =>
+                                        prevValue +
+                                        (currentValue.balance
+                                            ? currentValue.balance
+                                            : 0),
+                                    0
+                                )}
+                            </Text>
+                        </HStack>
+                    )}
+                </StatNumber>
+            </Stat>
+        </DetailsBox>
     )
 }
