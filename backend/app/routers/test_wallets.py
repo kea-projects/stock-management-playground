@@ -3,11 +3,11 @@ import pytest_asyncio
 from beanie import PydanticObjectId
 
 from ..main import app
-from ..test_utils.test import (get_test_client, get_current_user_override,
-                               verify_token_override, get_test_settings)
 from ..models.user import User
 from ..models.wallet import Wallet
 from ..services.user import get_current_user
+from ..test_utils.test import (get_current_user_override, get_test_client,
+                               get_test_settings, verify_token_override)
 from ..utils.auth import verify_token
 from ..utils.mongo import close_db, init_db
 

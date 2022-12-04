@@ -2,14 +2,13 @@ import pytest
 import pytest_asyncio
 from beanie import PydanticObjectId
 
-from ..models.wallet import Wallet
-from ..models.user import User
 from ..dtos.create_wallet_data import CreateWalletData
+from ..models.user import User
+from ..models.wallet import Wallet
 from ..test_utils.test import get_test_settings
 from ..utils.mongo import close_db, init_db
-from .wallet import delete_wallet, get_wallet_by_id, update_wallet
-from .wallet import get_user_wallet_by_id
-from .wallet import create_wallet
+from .wallet import (create_wallet, delete_wallet, get_user_wallet_by_id,
+                     get_wallet_by_id, update_wallet)
 
 # Setting up the Test Client
 settings = get_test_settings()

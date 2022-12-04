@@ -4,9 +4,9 @@ from fastapi.responses import RedirectResponse
 from fastapi_utils.tasks import repeat_every
 
 from .configs.settings import get_settings
-from .services.stock import get_stock_symbols
+from .routers import auth, stock_entries, stocks, users, wallets
 from .services.finnhub import fetch_stocks_from_list
-from .routers import auth, stocks, users, wallets, stock_entries
+from .services.stock import get_stock_symbols
 from .utils.mongo import init_db
 
 app = FastAPI()

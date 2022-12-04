@@ -4,9 +4,9 @@ from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
 from ..models.stock import Stock
+from ..services.finnhub import (fetch_stock_quote, get_external_stocks,
+                                get_stock_symbols)
 from ..services.stock import get_stock_by_id
-from ..services.finnhub import fetch_stock_quote, get_stock_symbols
-from ..services.finnhub import get_external_stocks
 from ..utils.auth import verify_token
 
 router = APIRouter(

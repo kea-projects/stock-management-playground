@@ -1,12 +1,12 @@
-import random
 import asyncio
-
+import random
 from typing import List
+
 import finnhub
 
 from ..configs.settings import get_settings
-from ..repos.stock import get_external_stock_by_ticker, update_external_stock
-from ..repos.stock import create_external_stock
+from ..repos.stock import (create_external_stock, get_external_stock_by_ticker,
+                           update_external_stock)
 from ..services.stock import get_stock_symbols
 from ..utils.custom_exceptions import finnhub_exception
 

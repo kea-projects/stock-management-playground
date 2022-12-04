@@ -1,6 +1,6 @@
 import os
-from typing import List
 from datetime import timedelta
+from typing import List
 
 from beanie import PydanticObjectId, WriteRules
 from dotenv import dotenv_values

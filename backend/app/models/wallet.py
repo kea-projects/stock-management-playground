@@ -1,5 +1,6 @@
-from beanie import Document, Link
 from typing import List
+
+from beanie import Document, Link
 
 from ..models.stock_entry import StockEntry
 
