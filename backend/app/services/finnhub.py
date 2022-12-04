@@ -43,6 +43,8 @@ async def fetch_stock_quote(symbol: str):
         raise finnhub_exception
     except finnhub.FinnhubRequestException:
         raise finnhub_exception
+    except Exception:
+        raise finnhub_exception
 
 
 async def fetch_stocks_from_list(symbols: List[str]):
