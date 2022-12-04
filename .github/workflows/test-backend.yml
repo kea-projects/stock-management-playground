@@ -64,6 +64,8 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: ${{ secrets.ALGORITHM }}
           ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
+          API_KEY: ${{ secrets.API_KEY }}
+          USE_RANDOM: ${{ secrets.USE_RANDOM }}
         run: |
           source .venv/bin/activate
           pip install pytest pytest-cov pytest-html pytest-sugar pytest-json-report
