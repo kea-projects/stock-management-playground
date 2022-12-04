@@ -15,4 +15,3 @@ class Stock(Document):
     last_updated: datetime = datetime.now()
     history: List[StockHistory] = []
     external_fetch: bool = False
- 
