@@ -16,7 +16,7 @@ settings = get_test_settings()
 
 # Test Data
 test_nickname = "Test Wallet"
-test_balance = 3000
+test_balance = 10000
 
 test_updated_nickname = "Updated Wallet"
 test_updated_balance = 4000

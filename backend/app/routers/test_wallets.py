@@ -40,7 +40,7 @@ app.dependency_overrides[get_current_user] = get_current_user_wrapper
 test_id = None
 test_user_wallet_id = PydanticObjectId()
 test_nickname = "Test Wallet"
-test_balance = 3000
+test_balance = 10000
 test_wallet = {
     "nickname": test_nickname,
     "balance": test_balance
@@ -82,7 +82,8 @@ async def test_read_self_wallets():
         {
             "_id": str(test_user_wallet_id),
             "nickname": test_nickname,
-            "balance": test_balance
+            "balance": test_balance,
+            "stock_entries": []
         }
     ]
 
@@ -100,7 +101,8 @@ async def test_read_self_wallet_by_id():
     assert data == {
         "_id": str(test_user_wallet_id),
         "nickname": test_nickname,
-        "balance": test_balance
+        "balance": test_balance,
+        "stock_entries": []
     }
 
 
@@ -136,7 +138,13 @@ async def test_read_wallets():
     data = response.json()
 
     assert data == [
-        {"_id": test_id, "nickname": test_nickname, "balance": test_balance}]
+        {
+            "_id": test_id,
+            "nickname": test_nickname,
+            "balance": test_balance,
+            "stock_entries": []
+        }
+    ]
 
 
 @pytest.mark.asyncio
@@ -147,6 +155,7 @@ async def test_read_wallet_by_id():
     data = response.json()
     assert data["nickname"] == test_nickname
     assert data["balance"] == test_balance
+    assert data["stock_entries"] == []
     assert data["_id"] == test_id
 
 
