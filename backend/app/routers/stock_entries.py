@@ -3,15 +3,15 @@ from typing import List
 from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
+from ..dtos.amount_data import AmountData
+from ..dtos.create_stock_entry_data import CreateStockEntryData
 from ..models.stock_entry import StockEntry
 from ..models.user import User
-from ..dtos.create_stock_entry_data import CreateStockEntryData
-from ..dtos.amount_data import AmountData
+from ..services.stock_entry import add_to_stock_entry
 from ..services.stock_entry import create_stock_entry as create
-from ..services.stock_entry import get_wallet_stock_entries, add_to_stock_entry
-from ..services.stock_entry import sell_from_stock_entry
+from ..services.stock_entry import (get_wallet_stock_entries,
+                                    sell_from_stock_entry)
 from ..services.user import get_current_user
-
 from ..utils.auth import verify_token
 
 router = APIRouter(

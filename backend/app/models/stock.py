@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional, List
+from typing import List, Optional
 
 from beanie import Document
 
@@ -15,4 +15,3 @@ class Stock(Document):
     last_updated: datetime = datetime.now()
     history: List[StockHistory] = []
     external_fetch: bool = False
- 

@@ -7,6 +7,7 @@
 - Python3
 - Poetry
 - MongoDB database
+- A Finnhub API free account
 
 ### Setup
 

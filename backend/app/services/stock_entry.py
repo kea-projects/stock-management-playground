@@ -1,16 +1,16 @@
 from beanie import PydanticObjectId, WriteRules
 
-from ..models.wallet import Wallet
-from ..models.user import User
-from ..models.stock_entry import StockEntry
-from ..dtos.create_stock_entry_data import CreateStockEntryData
 from ..dtos.amount_data import AmountData
-from ..services.wallet import get_user_wallet_by_id
-from ..services.wallet import get_user_wallet_containing_stock_entry
+from ..dtos.create_stock_entry_data import CreateStockEntryData
+from ..models.stock_entry import StockEntry
+from ..models.user import User
+from ..models.wallet import Wallet
 from ..services.stock import get_stock_by_id
-from ..utils.custom_exceptions import wallet_not_enough_funds_exception
-from ..utils.custom_exceptions import stock_entry_not_found_exception
-from ..utils.custom_exceptions import stock_entry_amount_too_high_exception
+from ..services.wallet import (get_user_wallet_by_id,
+                               get_user_wallet_containing_stock_entry)
+from ..utils.custom_exceptions import (stock_entry_amount_too_high_exception,
+                                       stock_entry_not_found_exception,
+                                       wallet_not_enough_funds_exception)
 
 
 async def get_stock_entry_by_id(stock_entry_id: PydanticObjectId):

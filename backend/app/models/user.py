@@ -1,9 +1,10 @@
-from beanie import Document, Link
-from pydantic import validator
 from typing import List
 
-from .wallet import Wallet
+from beanie import Document, Link
+from pydantic import validator
+
 from ..utils.validators import matches_email
+from .wallet import Wallet
 
 
 class User(Document):

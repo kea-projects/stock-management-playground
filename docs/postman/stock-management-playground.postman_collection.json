@@ -10,6 +10,46 @@
 			"name": "wallets",
 			"item": [
 				{
+					"name": "me",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{wallets}}/me",
+									"host": [
+										"{{wallets}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get-by-id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{wallets}}/me/6385b6a8443f680f8959299d",
+									"host": [
+										"{{wallets}}"
+									],
+									"path": [
+										"me",
+										"6385b6a8443f680f8959299d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "get-all",
 					"request": {
 						"method": "GET",
@@ -32,12 +72,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{wallets}}/631c9068266487310d468176",
+							"raw": "{{wallets}}/6380fb27dfcec9fe3846cb0f",
 							"host": [
 								"{{wallets}}"
 							],
 							"path": [
-								"631c9068266487310d468176"
+								"6380fb27dfcec9fe3846cb0f"
 							]
 						}
 					},
@@ -50,7 +90,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nickname\": \"Test Wallet\",\r\n    \"balance\": 3000\r\n}",
+							"raw": "{\r\n    \"nickname\": \"Stock Wallet 2 for Itai\",\r\n    \"balance\": 3000,\r\n    \"user_id\": \"6385b62e443f680f8959299b\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -76,7 +116,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nickname\": \"Test Wallet - Updated\",\r\n    \"balance\": 4500\r\n}",
+							"raw": "{\r\n    \"nickname\": \"Stock Wallet for Cristi\",\r\n    \"balance\": 4500\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,12 +124,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{wallets}}/6328283a3104352e1e258047",
+							"raw": "{{wallets}}/6380fb27dfcec9fe3846cb0f",
 							"host": [
 								"{{wallets}}"
 							],
 							"path": [
-								"6328283a3104352e1e258047"
+								"6380fb27dfcec9fe3846cb0f"
 							]
 						}
 					},
@@ -101,18 +141,470 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{wallets}}/631c9068266487310d468176",
+							"raw": "{{wallets}}/6385b6a8443f680f8959299d",
 							"host": [
 								"{{wallets}}"
 							],
 							"path": [
-								"631c9068266487310d468176"
+								"6385b6a8443f680f8959299d"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"itai@test12.com\",\r\n    \"password\": \"Ssecret012@\",\r\n    \"full_name\": \"Itai Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth}}/signup",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"access_token\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "itai@test12.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Ssecret012@",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{auth}}/login",
+							"host": [
+								"{{auth}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get-me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{users}}/me",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{users}}/",
+							"host": [
+								"{{users}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stock-entries",
+			"item": [
+				{
+					"name": "wallet",
+					"item": [
+						{
+							"name": "get-all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{stock_entries}}/wallet/6385b6a8443f680f8959299d",
+									"host": [
+										"{{stock_entries}}"
+									],
+									"path": [
+										"wallet",
+										"6385b6a8443f680f8959299d"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stock_entries}}/",
+							"host": [
+								"{{stock_entries}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": \"3\",\r\n    \"paid_price\": \"3000\",\r\n    \"stock_id\": \"6384b7a4b8923fe63181b07d\",\r\n    \"wallet_id\": \"6385e3c1e36a9087d7ab7351\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stock_entries}}/",
+							"host": [
+								"{{stock_entries}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stock_entries}}/add/6385bd920b86bb8fa04314c1",
+							"host": [
+								"{{stock_entries}}"
+							],
+							"path": [
+								"add",
+								"6385bd920b86bb8fa04314c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sell-amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stock_entries}}/sell/6385bd920b86bb8fa04314c1",
+							"host": [
+								"{{stock_entries}}"
+							],
+							"path": [
+								"sell",
+								"6385bd920b86bb8fa04314c1"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stocks",
+			"item": [
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stocks}}/",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stocks}}/6384b7a4b8923fe63181b07d",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								"6384b7a4b8923fe63181b07d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finnhub-get-by-symbol",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stocks}}/symbol/nflx",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								"symbol",
+								"nflx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finnhub-get-symbols",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stocks}}/symbols/",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								"symbols",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finnhub-get-all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{stocks}}/external/",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								"external",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sample Stock 05\",\r\n    \"stock_ticker\": \"tick\",\r\n    \"current_price\": 300\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{stocks}}/",
+							"host": [
+								"{{stocks}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJpdGFpQHRlc3QxMi5jb20iLCJpZCI6IjYzODViNjJlNDQzZjY4MGY4OTU5Mjk5YiIsImV4cCI6MTY3MDE5NzE3NX0.ZoDo8RGYKcglguK7UItI0-NIHORXl-Nd1PEES8T9XA4",
+			"type": "string"
+		},
+		{
+			"key": "python",
+			"value": "127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "wallets",
+			"value": "127.0.0.1:8000/wallets",
+			"type": "string"
+		},
+		{
+			"key": "auth",
+			"value": "127.0.0.1:8000/auth",
+			"type": "string"
+		},
+		{
+			"key": "users",
+			"value": "127.0.0.1:8000/users",
+			"type": "string"
+		},
+		{
+			"key": "stocks",
+			"value": "127.0.0.1:8000/stocks",
+			"type": "string"
+		},
+		{
+			"key": "stock_entries",
+			"value": "127.0.0.1:8000/stock-entries",
+			"type": "string"
 		}
 	]
 }

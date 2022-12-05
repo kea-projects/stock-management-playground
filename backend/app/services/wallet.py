@@ -1,11 +1,11 @@
 from beanie import PydanticObjectId, WriteRules
 
-from ..models.wallet import Wallet
-from ..models.user import User
 from ..dtos.create_wallet_data import CreateWalletData
-from ..utils.custom_exceptions import wallet_not_found_exception
-from ..utils.custom_exceptions import user_not_found_exception
-from ..utils.custom_exceptions import stock_entry_not_found_exception
+from ..models.user import User
+from ..models.wallet import Wallet
+from ..utils.custom_exceptions import (stock_entry_not_found_exception,
+                                       user_not_found_exception,
+                                       wallet_not_found_exception)
 
 
 async def get_wallet_by_id(wallet_id: PydanticObjectId):

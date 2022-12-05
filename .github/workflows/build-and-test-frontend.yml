@@ -35,6 +35,8 @@ jobs:
           MONGO_HOST: ${{ secrets.MONGO_HOST }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: ${{ secrets.ALGORITHM }}
+          API_KEY: ${{ secrets.API_KEY }}
+          USE_RANDOM: ${{ secrets.USE_RANDOM }}
           ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
         run: |
           source .venv/bin/activate

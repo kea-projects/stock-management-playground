@@ -3,14 +3,14 @@ from typing import List
 from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
-from ..models.wallet import Wallet
-from ..models.user import User
 from ..dtos.create_wallet_data import CreateWalletData
-from ..services.wallet import delete_wallet as delete
-from ..services.wallet import get_wallet_by_id, get_user_wallet_by_id
-from ..services.wallet import update_wallet as update
-from ..services.wallet import create_wallet as create
+from ..models.user import User
+from ..models.wallet import Wallet
 from ..services.user import get_current_user
+from ..services.wallet import create_wallet as create
+from ..services.wallet import delete_wallet as delete
+from ..services.wallet import get_user_wallet_by_id, get_wallet_by_id
+from ..services.wallet import update_wallet as update
 from ..utils.auth import verify_token
 
 router = APIRouter(
