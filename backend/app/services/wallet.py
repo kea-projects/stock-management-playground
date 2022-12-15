@@ -2,6 +2,7 @@ from beanie import PydanticObjectId, WriteRules
 
 from ..dtos.create_wallet_data import CreateWalletData
 from ..models.user import User
+from ..models.stock_entry import StockEntry
 from ..models.wallet import Wallet
 from ..utils.custom_exceptions import (stock_entry_not_found_exception,
                                        user_not_found_exception,
@@ -25,7 +26,12 @@ async def get_user_wallet_by_id(wallet_id: PydanticObjectId, user: User):
     )
 
     if len(wallets) == 1:
-        return wallets[0]
+        wallet = wallets[0]
+        await wallet.fetch_link(Wallet.stock_entries)
+        for stock_entry in wallet.stock_entries:
+            await stock_entry.fetch_link(StockEntry.stock)
+            stock_entry.stock.history.clear()
+        return wallet
     else:
         raise wallet_not_found_exception
 
