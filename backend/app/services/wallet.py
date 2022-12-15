@@ -9,6 +9,16 @@ from ..utils.custom_exceptions import (stock_entry_not_found_exception,
                                        wallet_not_found_exception)
 
 
+async def get_user_wallets(user: User):
+    await user.fetch_link(User.wallets)
+    for wallet in user.wallets:
+        await wallet.fetch_link(Wallet.stock_entries)
+        for stock_entry in wallet.stock_entries:
+            await stock_entry.fetch_link(StockEntry.stock)
+            stock_entry.stock.history.clear()
+    return user.wallets
+
+
 async def get_wallet_by_id(wallet_id: PydanticObjectId):
     wallet = await Wallet.get(wallet_id)
 

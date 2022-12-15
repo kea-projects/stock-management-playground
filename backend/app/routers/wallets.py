@@ -9,7 +9,7 @@ from ..models.wallet import Wallet
 from ..services.user import get_current_user
 from ..services.wallet import create_wallet as create
 from ..services.wallet import delete_wallet as delete
-from ..services.wallet import get_user_wallet_by_id, get_wallet_by_id
+from ..services.wallet import get_user_wallet_by_id, get_wallet_by_id, get_user_wallets
 from ..services.wallet import update_wallet as update
 from ..utils.auth import verify_token
 
@@ -21,8 +21,7 @@ router = APIRouter(
 
 @router.get("/me", response_model=List[Wallet], tags=["Wallets"])
 async def read_self_wallets(user: User = Depends(get_current_user)):
-    await user.fetch_link(User.wallets)
-    return user.wallets
+    return await get_user_wallets(user=user)
 
 
 @router.get("/me/{wallet_id}", response_model=Wallet, tags=["Wallets"])
