@@ -15,7 +15,7 @@ export function Wallets() {
     return (
         <DetailsBox width="100%">
             <Accordion width="100%" allowToggle>
-                <Skeleton isLoaded={!isLoading} width="100%" height={8}>
+                <Skeleton isLoaded={!isLoading} width="100%" minHeight={8}>
                     {data?.map((wallet) => (
                         <AccordionItem
                             borderColor="transparent"
