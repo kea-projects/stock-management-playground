@@ -1,5 +1,5 @@
 import { Wallet } from '../../../../../api/client'
-import { Badge, Button, HStack, Text } from '@chakra-ui/react'
+import { Badge, HStack, Text } from '@chakra-ui/react'
 
 interface WalletBarProps {
     wallet: Wallet
@@ -24,16 +24,6 @@ export function WalletBar({ wallet }: WalletBarProps) {
                             </Badge>
                         )
                     })}
-                <Button
-                    variant="signInButton"
-                    size="sm"
-                    onClick={(e) => {
-                        e.preventDefault()
-                        console.log('hello')
-                    }}
-                >
-                    buy another stock
-                </Button>
             </HStack>
         </HStack>
     )

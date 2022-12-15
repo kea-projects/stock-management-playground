@@ -3,11 +3,14 @@ import {
     AccordionButton,
     AccordionIcon,
     AccordionItem,
+    AccordionPanel,
+    Button,
     Skeleton,
 } from '@chakra-ui/react'
 import { useGetAllWalletsMe } from '../../../../api/hooks/useWallets'
 import { DetailsBox } from '../../../../components/details-box/DetailsBox'
 import { WalletBar } from './wallet-bar/WalletBar'
+import { WalletTable } from './wallet-table/WalletTable'
 
 export function Wallets() {
     const { data, isLoading } = useGetAllWalletsMe()
@@ -23,8 +26,26 @@ export function Wallets() {
                         >
                             <AccordionButton>
                                 <WalletBar wallet={wallet} />
+
                                 <AccordionIcon />
                             </AccordionButton>
+                            <AccordionPanel position="relative">
+                                <Button
+                                    style={{
+                                        position: 'absolute',
+                                        top: '10px',
+                                        right: '10px',
+                                    }}
+                                    variant="signInButton"
+                                    size="sm"
+                                    onClick={() => {
+                                        console.log('hello')
+                                    }}
+                                >
+                                    buy another stock
+                                </Button>
+                                <WalletTable wallet={wallet} />
+                            </AccordionPanel>
                         </AccordionItem>
                     ))}
                 </Skeleton>
