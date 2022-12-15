@@ -2,6 +2,8 @@ import motor
 from beanie import init_beanie
 
 from ..configs.settings import Settings
+from ..models.stock import Stock
+from ..models.stock_entry import StockEntry
 from ..models.user import User
 from ..models.wallet import Wallet
 
@@ -15,12 +17,12 @@ async def init_db(settings: Settings):
         f":{settings.config['MONGO_PASSWORD']}@{settings.config['MONGO_HOST']}"
     )
     await init_beanie(database=client.stock_management_playground,
-                      document_models=[Wallet, User])
-    print("MongoDB initialized!")
+                      document_models=[Wallet, User, Stock, StockEntry])
+    print("Mongo Util > MongoDB initialized!")
 
 
 def close_db():
     global client
     if (client is not None):
         client.close()
-        print("MongoDB closed!")
+        print("Mongo Util > MongoDB closed!")
