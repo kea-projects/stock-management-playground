@@ -4,27 +4,27 @@ import {
     StatHelpText,
     StatLabel,
     StatNumber,
-    Spinner,
     HStack,
 } from '@chakra-ui/react'
-import { useGetAllWalletsMe } from '../../../../../api/hooks/useWallets'
 import { DetailsBox } from '../../../../../components/details-box/DetailsBox'
+import { Wallet } from '../../../../../api/client'
 
-export function WalletsStatusCard() {
-    const { data, isLoading } = useGetAllWalletsMe()
+interface WalletsStatusCardProps {
+    wallets: Wallet[]
+}
+
+export function WalletsStatusCard({ wallets }: WalletsStatusCardProps) {
     return (
         <DetailsBox>
-            <Stat>
-                <StatLabel fontSize="large">Wallets Overview</StatLabel>
-                <StatHelpText>Your available cash</StatHelpText>{' '}
-                <StatNumber fontSize="large">
-                    {isLoading ? (
-                        <Spinner />
-                    ) : (
+            <HStack minWidth={300} minHeight={150} flexGrow={1}>
+                <Stat>
+                    <StatLabel fontSize="large">Wallets Overview</StatLabel>
+                    <StatHelpText>Your available cash</StatHelpText>{' '}
+                    <StatNumber fontSize="large">
                         <HStack>
                             <Text>
                                 $
-                                {data?.reduce(
+                                {wallets.reduce(
                                     (prevValue, currentValue) =>
                                         prevValue +
                                         (currentValue.balance
@@ -34,9 +34,9 @@ export function WalletsStatusCard() {
                                 )}
                             </Text>
                         </HStack>
-                    )}
-                </StatNumber>
-            </Stat>
+                    </StatNumber>
+                </Stat>
+            </HStack>
         </DetailsBox>
     )
 }

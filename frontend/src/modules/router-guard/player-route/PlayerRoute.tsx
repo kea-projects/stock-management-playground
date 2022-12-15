@@ -8,6 +8,7 @@ import { useContext } from 'react'
 import { UserContext } from '../../../provider/user-provider/UserProvider'
 import { SideNavigationBar } from '../../../components/navigation-bar/side-navigation-bar/SideNavigationBar'
 import { PlayerHomepage } from './player-homepage/PlayerHomepage'
+import { Wallets } from './wallets/wallets'
 
 export function PlayerRoute() {
     const { data, error } = useGetUserMe()
@@ -25,17 +26,16 @@ export function PlayerRoute() {
                 alignItems="stretch"
             >
                 <SideNavigationBar />
-                <VStack w="100%">
+                <VStack w="100%" padding={3}>
                     <TopNavigationBar fullName={data?.full_name} />
                     <Routes>
                         <Route
                             path={routes.homepage}
                             element={<PlayerHomepage />}
                         />
-                        <Route
-                            path={routes.wallets}
-                            element={<Text>wallets page</Text>}
-                        />
+                        <Route path={`${routes.wallets}`} element={<Wallets />}>
+                            <Route path={`:walletId`} element={<Wallets />} />
+                        </Route>
                         <Route
                             path={routes.transactions}
                             element={<Text>Transactions page</Text>}

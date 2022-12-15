@@ -1,14 +1,21 @@
 import { ReactNode } from 'react'
-import { Box } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 interface DetailsBoxProps {
     children: ReactNode
+    width?: string | number | string[] | number[]
 }
 
-export function DetailsBox({ children }: DetailsBoxProps) {
+export function DetailsBox({ children, width }: DetailsBoxProps) {
     return (
-        <Box bg={'contentBoxColor'} m={10} p={3} borderRadius={5}>
+        <Flex
+            bg={'contentBoxColor'}
+            p={3}
+            marginX={5}
+            borderRadius={5}
+            width={width}
+        >
             {children}
-        </Box>
+        </Flex>
     )
 }

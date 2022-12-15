@@ -13,11 +13,21 @@ const useClient = () => {
 
 export const WalletsKeys = {
     allWalletsMe: 'ALL_WALLETS_ME',
+    singleWalletMe: 'SINGLE_WALLET_ME',
 }
 
 export const useGetAllWalletsMe = () => {
     const client = useClient()
     return useQuery([WalletsKeys.allWalletsMe], () =>
         client.readSelfWalletsWalletsMeGet().then((response) => response.data)
+    )
+}
+
+export const useGetSingleWallet = (walletId: string) => {
+    const client = useClient()
+    return useQuery([WalletsKeys.singleWalletMe], () =>
+        client
+            .readSelfWalletsByIdWalletsMeWalletIdGet(walletId)
+            .then((response) => response.data)
     )
 }
