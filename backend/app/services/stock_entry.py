@@ -53,7 +53,7 @@ async def create_stock_entry(
         # Create stock_entry
         stock_entry = StockEntry(
             amount=stock_entry_data.amount,
-            paid_price=stock.current_price * stock_entry_data.amount,
+            paid_price=stock.current_price,
             stock=stock
         )
         # Link stock to stock_entry
@@ -88,8 +88,13 @@ async def add_to_stock_entry(
     stock = stock_entry.stock
 
     if wallet.balance >= stock.current_price * amount_data.amount:
-        stock_entry.amount += amount_data.amount
-        stock_entry.paid_price += stock.current_price / stock_entry.amount
+        new_total_amount = stock_entry.amount + amount_data.amount
+        old_average = stock_entry.paid_price * stock_entry.amount
+        new_average = stock.current_price * amount_data.amount
+
+        stock_entry.paid_price = (old_average + new_average) / new_total_amount
+
+        stock_entry.amount = new_total_amount
         await stock_entry.save()
 
         wallet.balance -= stock.current_price * amount_data.amount
