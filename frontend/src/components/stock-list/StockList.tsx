@@ -1,5 +1,5 @@
 import { useGetStocksSymbols } from '../../api/hooks/useStock'
-import { Box, Spinner, VStack } from '@chakra-ui/react'
+import { Flex, Skeleton, VStack } from '@chakra-ui/react'
 import { StockBar } from '../stock-bar/StockBar'
 
 interface StockListProps {
@@ -9,21 +9,19 @@ interface StockListProps {
 export function StockList({ setSelectedStock }: StockListProps) {
     const { data, isLoading } = useGetStocksSymbols()
     return (
-        <VStack height="100%" bg="contentBoxColor" px={10}>
-            {isLoading ? (
-                <Spinner />
-            ) : (
-                <VStack justifyContent="normal">
+        <VStack height="100%" bg="contentBoxColor" pt={5} px={3}>
+            <Skeleton isLoaded={!isLoading}>
+                <VStack justifyContent="space-between">
                     {data?.map((stockSymbol) => (
-                        <Box
+                        <Flex
                             onClick={() => setSelectedStock(stockSymbol)}
                             key={stockSymbol}
                         >
                             <StockBar stockTicker={stockSymbol} />
-                        </Box>
+                        </Flex>
                     ))}
                 </VStack>
-            )}
+            </Skeleton>
         </VStack>
     )
 }

@@ -7,6 +7,8 @@ import {
     StatHelpText,
     StatLabel,
     Text,
+    Image,
+    Skeleton,
 } from '@chakra-ui/react'
 
 interface StockGraphProps {
@@ -16,10 +18,14 @@ interface StockGraphProps {
 export function StockBar({ stockTicker }: StockGraphProps) {
     const { data, isLoading } = useGetStock({ stockTicker })
     return (
-        <>
-            {isLoading ? (
-                <Spinner />
-            ) : (
+        <Skeleton isLoaded={!isLoading} width="100%">
+            <HStack justifyContent="space-between" width="100%">
+                <Image
+                    borderRadius="full"
+                    boxSize="50px"
+                    src={data?.logo}
+                    alt={stockTicker}
+                />
                 <Stat>
                     <StatLabel fontSize="large">
                         <HStack>
@@ -52,7 +58,7 @@ export function StockBar({ stockTicker }: StockGraphProps) {
                         <Spinner />
                     )}
                 </Stat>
-            )}
-        </>
+            </HStack>
+        </Skeleton>
     )
 }

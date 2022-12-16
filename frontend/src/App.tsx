@@ -1,5 +1,4 @@
 import { BrowserRouter } from 'react-router-dom'
-import { VStack } from '@chakra-ui/react'
 import { RouterGuard } from './modules/router-guard/RouterGuard'
 import { useContext } from 'react'
 import {
@@ -12,9 +11,7 @@ function App() {
     return (
         <UserProvider value={userDetail}>
             <BrowserRouter>
-                <VStack>
-                    <RouterGuard />
-                </VStack>
+                <RouterGuard />
             </BrowserRouter>
         </UserProvider>
     )

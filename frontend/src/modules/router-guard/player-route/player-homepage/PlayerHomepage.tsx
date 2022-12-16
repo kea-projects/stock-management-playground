@@ -1,4 +1,4 @@
-import { HStack, Spinner, VStack } from '@chakra-ui/react'
+import { HStack, SimpleGrid, Spinner, VStack } from '@chakra-ui/react'
 import { StockList } from '../../../../components/stock-list/StockList'
 import { useState } from 'react'
 import { ViewStock } from '../../../../components/view-stock/ViewStock'
@@ -16,18 +16,14 @@ export function PlayerHomepage() {
         navigation(`${routes.wallets}/${walletId}`)
     }
     return (
-        <HStack
-            w="100%"
-            alignItems="flex-start"
-            px={10}
-            justifyContent={'space-between'}
-            flexGrow={1}
-        >
+        <HStack w="100%" flexGrow={1}>
             <VStack height="100%" width="100%">
                 {isLoading ? (
                     <Spinner />
                 ) : (
-                    <VStack
+                    <SimpleGrid
+                        columns={[1, 1, 2]}
+                        spacing={10}
                         alignItems="flex-start"
                         h="100%"
                         justifyContent="space-around"
@@ -59,7 +55,7 @@ export function PlayerHomepage() {
                                       />
                                   ))
                             : null}
-                    </VStack>
+                    </SimpleGrid>
                 )}
                 {selectedStock ? (
                     <VStack bg="contentBoxColor" w="100%">
@@ -67,6 +63,7 @@ export function PlayerHomepage() {
                     </VStack>
                 ) : null}
             </VStack>
+
             <StockList setSelectedStock={setSelectedStock} />
         </HStack>
     )

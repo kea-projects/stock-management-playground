@@ -1,7 +1,8 @@
 import { StockEntry, Wallet } from '../../../../../api/client'
 import { ColumnDef } from '@tanstack/react-table'
-import { Box, Button, HStack } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { GenericTable } from '../../../../../components/generic-table/GenericTable'
+import { BuySellStockButtons } from '../stock-entry-transaction/buy-sell-stock-buttons/BuySellStockButtons'
 
 interface WalletTableProps {
     wallet: Wallet
@@ -39,27 +40,12 @@ export function WalletTable({ wallet }: WalletTableProps) {
             accessorKey: '_id',
             header: '',
             cell: (value) => (
-                <HStack>
-                    <Button
-                        variant="signInButton"
-                        onClick={() => {
-                            console.log(value.row.original._id)
-                        }}
-                    >
-                        Sell
-                    </Button>
-                    <Button
-                        variant="signInButton"
-                        onClick={() => {
-                            console.log(value.row.original._id)
-                        }}
-                    >
-                        Buy
-                    </Button>
-                </HStack>
+                <BuySellStockButtons
+                    walletBalance={wallet.balance ?? 0}
+                    stockEntry={value.row.original}
+                />
             ),
         },
     ]
-
     return <GenericTable columns={columns} data={wallet.stock_entries ?? []} />
 }

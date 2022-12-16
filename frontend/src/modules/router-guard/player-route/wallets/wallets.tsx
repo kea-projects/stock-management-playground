@@ -26,7 +26,6 @@ export function Wallets() {
                         >
                             <AccordionButton>
                                 <WalletBar wallet={wallet} />
-
                                 <AccordionIcon />
                             </AccordionButton>
                             <AccordionPanel position="relative">
