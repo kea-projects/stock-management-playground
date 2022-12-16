@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends
 from ..models.stock import Stock
 from ..services.finnhub import (fetch_stock_quote, get_external_stocks,
                                 get_stock_symbols)
-from ..services.stock import get_stock_by_id
+from ..services.stock import get_stock_by_id, get_stocks_no_history
 from ..utils.auth import verify_token
 
 router = APIRouter(
@@ -17,7 +17,7 @@ router = APIRouter(
 
 @router.get("/", response_model=List[Stock], tags=["Stocks"])
 async def read_stocks():
-    return await Stock.find_all().to_list()
+    return await get_stocks_no_history()
 
 
 @router.get("/{stock_id}", response_model=Stock, tags=["Stocks"])
