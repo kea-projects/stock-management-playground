@@ -8,13 +8,7 @@ interface DetailsBoxProps {
 
 export function DetailsBox({ children, width }: DetailsBoxProps) {
     return (
-        <Flex
-            bg={'contentBoxColor'}
-            p={3}
-            marginX={5}
-            borderRadius={5}
-            width={width}
-        >
+        <Flex bg={'contentBoxColor'} p={3} borderRadius={5} width={width}>
             {children}
         </Flex>
     )

@@ -16,7 +16,7 @@ interface WalletsStatusCardProps {
 export function WalletsStatusCard({ wallets }: WalletsStatusCardProps) {
     return (
         <DetailsBox>
-            <HStack minWidth={300} minHeight={150} flexGrow={1}>
+            <HStack w="100%" minHeight={150} flexGrow={1}>
                 <Stat>
                     <StatLabel fontSize="large">Wallets Overview</StatLabel>
                     <StatHelpText>Your available cash</StatHelpText>{' '}

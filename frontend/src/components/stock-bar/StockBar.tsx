@@ -18,8 +18,8 @@ interface StockGraphProps {
 export function StockBar({ stockTicker }: StockGraphProps) {
     const { data, isLoading } = useGetStock({ stockTicker })
     return (
-        <Skeleton isLoaded={!isLoading} width="100%">
-            <HStack justifyContent="space-between" width="100%">
+        <Skeleton isLoaded={!isLoading}>
+            <HStack justifyContent="space-between">
                 <Image
                     borderRadius="full"
                     boxSize="50px"

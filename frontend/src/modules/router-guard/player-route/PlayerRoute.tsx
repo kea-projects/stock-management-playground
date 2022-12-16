@@ -26,7 +26,7 @@ export function PlayerRoute() {
                 alignItems="stretch"
             >
                 <SideNavigationBar />
-                <VStack>
+                <VStack width="100%">
                     <TopNavigationBar fullName={data?.full_name} />
                     <Routes>
                         <Route
