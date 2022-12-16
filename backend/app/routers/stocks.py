@@ -16,8 +16,8 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[Stock], tags=["Stocks"])
-async def read_stocks():
-    return await get_stocks_no_history()
+async def read_stocks(search: str = None):
+    return await get_stocks_no_history(search=search)
 
 
 @router.get("/{stock_id}", response_model=Stock, tags=["Stocks"])
