@@ -18,12 +18,16 @@ use_random = settings.config["USE_RANDOM"] or False
 async def fetch_stock_quote(symbol: str):
     try:
         stock_quote = finnhub_client.quote(symbol=symbol)
+        stock_details = finnhub_client.company_profile2(symbol=symbol)
+
         price = stock_quote["c"] if not use_random else randomize(
             stock_quote["c"]
         )
         percent_change = stock_quote["dp"] if not use_random else randomize(
             stock_quote["dp"]
         )
+        name = stock_details["name"]
+        logo = stock_details["logo"]
 
         stock = await get_external_stock_by_ticker(symbol)
         if stock is not None:
@@ -36,7 +40,9 @@ async def fetch_stock_quote(symbol: str):
             return await create_external_stock(
                 ticker=symbol,
                 price=price,
-                percent_change=percent_change
+                percent_change=percent_change,
+                name=name,
+                logo=logo
             )
 
     except finnhub.FinnhubAPIException:

@@ -42,16 +42,19 @@ async def update_external_stock(
 async def create_external_stock(
     ticker: str,
     price: float,
-    percent_change: float
+    percent_change: float,
+    logo: str,
+    name: str,
 ):
     stock = Stock(
         current_price=price,
         percentage_change=percent_change,
         description="Stock fetched from Finnhub API",
-        name=ticker,
+        name=name,
         stock_ticker=ticker,
         last_updated=datetime.utcnow(),
-        external_fetch=True
+        external_fetch=True,
+        logo=logo
     )
 
     return await stock.create()
