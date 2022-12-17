@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AmountData, StockEntriesApi } from '../client'
+import { AmountData, CreateStockEntryData, StockEntriesApi } from '../client'
 import { BaseConfig } from '../client-config/baseConfig'
 import { axiosInstance } from '../client-config/axiosConfig'
 import { useMutation } from '@tanstack/react-query'
@@ -31,3 +31,11 @@ export const useBuyStockEntry = () => {
         client.buyMoreStockEntryStockEntriesAddStockEntryIdPost(stockId, amount)
     )
 }
+export const useBuyNewStockEntry = () => {
+    const client = useClient()
+    return useMutation((createStockEntryData: CreateStockEntryData) =>
+        client.createStockEntryStockEntriesPost(createStockEntryData)
+    )
+}
+
+

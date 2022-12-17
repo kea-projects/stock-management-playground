@@ -7,8 +7,8 @@ import { HStack, VStack, Text } from '@chakra-ui/react'
 import { useContext } from 'react'
 import { UserContext } from '../../../provider/user-provider/UserProvider'
 import { SideNavigationBar } from '../../../components/navigation-bar/side-navigation-bar/SideNavigationBar'
-import { PlayerHomepage } from './player-homepage/PlayerHomepage'
-import { Wallets } from './wallets/wallets'
+import { PlayerHomepage } from '../../player-homepage/PlayerHomepage'
+import { Wallets } from '../../wallets/wallets'
 
 export function PlayerRoute() {
     const { data, error } = useGetUserMe()

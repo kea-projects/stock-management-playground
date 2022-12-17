@@ -4,6 +4,7 @@ from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
 from ..dtos.create_wallet_data import CreateWalletData
+from ..dtos.create_wallet_me_data import CreateWalletMeData
 from ..models.user import User
 from ..models.wallet import Wallet
 from ..services.user import get_current_user
@@ -25,10 +26,19 @@ async def read_self_wallets(user: User = Depends(get_current_user)):
     return await get_user_wallets(user=user)
 
 
+@router.post("/me", tags=["Wallets"])
+async def create_self_wallet(wallet_me_data: CreateWalletMeData, user: User = Depends(get_current_user)):
+    wallet_data = CreateWalletData(user_id=user.id, nickname=wallet_me_data.nickname )
+    # wallet_data.nickname = wallet_me_data.nickname
+    # wallet_data.user_id = user.id
+    print(wallet_data)
+    return await create(wallet_data=wallet_data)
+
+
 @router.get("/me/{wallet_id}", response_model=Wallet, tags=["Wallets"])
 async def read_self_wallets_by_id(
-    wallet_id: PydanticObjectId,
-    user: User = Depends(get_current_user)
+        wallet_id: PydanticObjectId,
+        user: User = Depends(get_current_user)
 ):
     return await get_user_wallet_by_id(wallet_id=wallet_id, user=user)
 

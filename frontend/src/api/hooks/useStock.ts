@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { StocksApi } from '../client'
 import { BaseConfig } from '../client-config/baseConfig'
 import { axiosInstance } from '../client-config/axiosConfig'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const useClient = () => {
     const [stockApi] = useState(
@@ -11,9 +11,10 @@ const useClient = () => {
     return stockApi
 }
 
-export const StockKeys = {
+export const stockKeys = {
     stock: 'STOCK',
     stockSymbols: 'STOCK_SYMBOLS',
+    allStocks: 'ALL_STOCKS',
 }
 
 interface GetStock {
@@ -22,18 +23,32 @@ interface GetStock {
 
 export const useGetStock = ({ stockTicker }: GetStock) => {
     const client = useClient()
-    return useQuery([StockKeys.stock, stockTicker], () =>
+    return useQuery([stockKeys.stock, stockTicker], () =>
         client
             .readStockBySymbolStocksSymbolStockSymbolGet(stockTicker)
             .then((response) => response.data)
     )
 }
 
+export const useGetAllStocks = () => {
+    const client = useClient()
+    return useQuery([stockKeys.allStocks], () =>
+        client.readStocksStocksGet().then((response) => response.data)
+    )
+}
+
 export const useGetStocksSymbols = () => {
     const client = useClient()
-    return useQuery([StockKeys.stockSymbols], () =>
+    return useQuery([stockKeys.stockSymbols], () =>
         client
             .readStockSymbolsStocksSymbolsGet()
             .then((response) => response.data)
     )
+}
+export interface StockByStockTickerInput {
+  stockTicker: string
+}
+export const useGetStockByStockTicker = () => {
+  const client = useClient()
+  return useMutation(({stockTicker}: StockByStockTickerInput)=> client.readStockBySymbolStocksSymbolStockSymbolGet(stockTicker))
 }

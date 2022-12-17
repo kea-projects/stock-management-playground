@@ -1,5 +1,5 @@
 import { useGetStocksSymbols } from '../../api/hooks/useStock'
-import { Flex, Skeleton, VStack } from '@chakra-ui/react'
+import { Skeleton, VStack } from '@chakra-ui/react'
 import { StockBar } from '../stock-bar/StockBar'
 
 interface StockListProps {
@@ -16,14 +16,10 @@ export function StockList({ setSelectedStock }: StockListProps) {
                 bg="contentBoxColor"
                 py={3}
                 px={3}
+                width="100%"
             >
                 {data?.map((stockSymbol) => (
-                    <Flex
-                        onClick={() => setSelectedStock(stockSymbol)}
-                        key={stockSymbol}
-                    >
-                        <StockBar stockTicker={stockSymbol} />
-                    </Flex>
+                        <StockBar stockTicker={stockSymbol} onClick={setSelectedStock} key={stockSymbol}/>
                 ))}
             </VStack>
         </Skeleton>

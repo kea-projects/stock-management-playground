@@ -1,5 +1,11 @@
 import { rest } from 'msw'
 
+const postBuyNewStock = rest.post(
+  'http://localhost/stock-entries/',
+  (req, res, context) => {
+    return res(context.status(201))
+  }
+)
 const postSellStock = rest.post(
     'http://localhost/stock-entries/sell/:id',
     (req, res, context) => {
@@ -12,4 +18,5 @@ const postBuyStock = rest.post(
         return res(context.status(200))
     }
 )
-export const stockEntriesHandlers = [postSellStock, postBuyStock]
+
+export const stockEntriesHandlers = [postSellStock, postBuyStock, postBuyNewStock]

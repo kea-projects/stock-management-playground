@@ -13,13 +13,14 @@ import {
 
 interface StockGraphProps {
     stockTicker: string
+    onClick: (stockTicker: string)=>void
 }
 
-export function StockBar({ stockTicker }: StockGraphProps) {
+export function StockBar({ stockTicker, onClick }: StockGraphProps) {
     const { data, isLoading } = useGetStock({ stockTicker })
     return (
         <Skeleton isLoaded={!isLoading}>
-            <HStack justifyContent="space-between">
+            <HStack justifyContent="space-between" onClick={()=> onClick(stockTicker)} width="100%">
                 <Image
                     borderRadius="full"
                     boxSize="50px"
