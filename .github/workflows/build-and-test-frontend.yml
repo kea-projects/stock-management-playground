@@ -64,6 +64,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Setup node
         uses: actions/setup-node@v2
         with:
