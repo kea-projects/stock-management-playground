@@ -1,11 +1,11 @@
 import {
-    Accordion,
-    AccordionButton,
-    AccordionIcon,
-    AccordionItem,
-    AccordionPanel,
-    VStack,
-} from '@chakra-ui/react'
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  VStack
+} from "@chakra-ui/react";
 import { useGetAllWalletsMe } from '../../api/hooks/useWallets'
 import { DetailsBox } from '../../components/details-box/DetailsBox'
 import { WalletBar } from './wallet-bar/WalletBar'
@@ -18,9 +18,8 @@ export function Wallets() {
     const { data } = useGetAllWalletsMe()
     let { walletId } = useParams()
     const getDefaultWalletIndex = () => {
-        const result = data?.map((wallet) => wallet._id).indexOf(walletId)
-        console.log(result)
-        return result
+        return  data?.map((wallet) => wallet._id).indexOf(walletId)
+
     }
 
     return (
@@ -35,14 +34,19 @@ export function Wallets() {
                         borderColor="transparent"
                         key={wallet._id}
                         my={5}
+                        display="flex"
+                        flexDir="column"
+
                     >
-                        <DetailsBox>
-                          <VStack width="100%">
+                        <DetailsBox width="100%">
+                          <VStack alignItems="stretch"
+                                  width="100%">
                             <AccordionButton>
                                 <WalletBar wallet={wallet} />
                                 <AccordionIcon />
                             </AccordionButton>
-                            <AccordionPanel position="relative" w="100%">
+                            <AccordionPanel position="relative" >
+
                                 <BuyNewStockButton
                                     walletId={wallet._id ?? '0'}
                                 />

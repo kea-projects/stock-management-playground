@@ -31,7 +31,7 @@ export function WalletsStatusCard({ wallets }: WalletsStatusCardProps) {
                                             ? currentValue.balance
                                             : 0),
                                     0
-                                )}
+                                ).toFixed(2)}
                             </Text>
                         </HStack>
                     </StatNumber>

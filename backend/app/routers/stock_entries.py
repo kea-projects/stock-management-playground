@@ -46,6 +46,7 @@ async def create_stock_entry(
     stock_entry_data: CreateStockEntryData,
     user: User = Depends(get_current_user)
 ):
+    print(stock_entry_data)
     return await create(stock_entry_data=stock_entry_data, user=user)
 
 

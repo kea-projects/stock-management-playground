@@ -70,7 +70,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         shell: bash
 
       - name: Download swagger json file
@@ -83,16 +83,16 @@ jobs:
         run: ls
 
       - name: Generate client-api
-        run: yarn swagger-generater:test
+        run: pnpm swagger-generater:test
         shell: bash
 
       - name: Run ESLint
-        run: yarn eslint .
+        run: pnpm eslint .
 
       - name: Build
-        run: yarn build
+        run: pnpm build
         shell: bash
 
       - name: Test
-        run: yarn test
+        run: pnpm test
         shell: bash

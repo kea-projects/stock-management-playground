@@ -6,6 +6,6 @@ describe('Stock Bar test', () => {
     test('checks if stock graph can get stock name and show on screen', async () => {
         render(<StockBar stockTicker="TEST" onClick={()=>null}/>)
         await screen.findByText('TEST')
-        await screen.findByText('142.45')
+        await screen.findByText('142.45$')
     })
 })

@@ -8,6 +8,6 @@ describe('checks wallets card status', () => {
         render(<WalletsStatusCard wallets={mockResponseForWalletsMe}/>)
         screen.getByText('Wallets Overview')
         screen.getByText('Your available cash')
-        await screen.findByText('$100293')
+        await screen.findByText('$100293.00')
     })
 })

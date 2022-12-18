@@ -47,5 +47,5 @@ export function WalletTable({ wallet }: WalletTableProps) {
             ),
         },
     ]
-    return <Box w="100%"><GenericTable columns={columns} data={wallet.stock_entries ?? []} /></Box>
+    return <GenericTable columns={columns} data={wallet.stock_entries ?? []} />
 }

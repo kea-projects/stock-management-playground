@@ -13,9 +13,13 @@ const getStocksSymbols = rest.get(
 const getStock = rest.get(
     'http://localhost/stocks/symbol/:stockId',
     (req, res, context) => {
-        if (req.params.stockId === 'TEST')
-            return res(context.json(stockMockData[0]))
-        else return res(context.status(400))
+        return res(
+            context.json(
+                stockMockData.find(
+                    (stock) => stock.stock_ticker === req.params.stockId
+                )
+            )
+        )
     }
 )
 

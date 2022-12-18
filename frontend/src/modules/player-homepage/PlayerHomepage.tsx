@@ -16,14 +16,13 @@ export function PlayerHomepage() {
         navigation(`${routes.wallets}/${walletId}`)
     }
     return (
-        <HStack flexGrow={1} justifyContent="space-between" w="100%">
-            <VStack height="100%">
-                <Skeleton isLoaded={!isLoading} w="100%">
+        <HStack flexGrow={1} justifyContent="space-between" w="100%" alignItems="flex-start">
+            {/*<VStack>*/}
+                <Skeleton isLoaded={!isLoading} w="100%" display="flex" flexDirection="column" height="100%" justifyContent="space-between">
                     <SimpleGrid
                         columns={[1, 2, 3]}
                         spacing={3}
                         alignItems="flex-start"
-                        h="100%"
                     >
                         <WalletsStatusCard wallets={data ?? []} />
 
@@ -60,7 +59,7 @@ export function PlayerHomepage() {
                         </VStack>
                     ) : null}
                 </Skeleton>
-            </VStack>
+            {/*</VStack>*/}
 
             <StockList setSelectedStock={setSelectedStock} />
         </HStack>

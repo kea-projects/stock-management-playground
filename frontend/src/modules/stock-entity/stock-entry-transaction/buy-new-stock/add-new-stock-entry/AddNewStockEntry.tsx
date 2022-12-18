@@ -13,7 +13,6 @@ export function AddNewStockEntry({ onSuccess }: AddNewStockEntryProps) {
     const [errorMessage, setErrorMessage] = useState<string | undefined>()
     const mutation = useGetStockByStockTicker()
     const onSubmit = ({ stockTicker }: AddNewStockEntryValues) => {
-        console.log('onSubmi')
         mutation.mutate(
             { stockTicker },
             {
