@@ -56,6 +56,11 @@ wallet_not_enough_funds_exception = HTTPException(
     detail="Not enough funds for transaction!"
 )
 
+wallet_cannot_delete_not_empty = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Wallet cannot be deleted. Sell all stock entries first."
+)
+
 # --- Stock Exceptions ---
 
 stock_not_found_exception = HTTPException(

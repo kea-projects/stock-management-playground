@@ -27,11 +27,12 @@ async def read_self_wallets(user: User = Depends(get_current_user)):
 
 
 @router.post("/me", tags=["Wallets"])
-async def create_self_wallet(wallet_me_data: CreateWalletMeData, user: User = Depends(get_current_user)):
-    wallet_data = CreateWalletData(user_id=user.id, nickname=wallet_me_data.nickname )
-    # wallet_data.nickname = wallet_me_data.nickname
-    # wallet_data.user_id = user.id
-    print(wallet_data)
+async def create_self_wallet(
+    wallet_me_data: CreateWalletMeData,
+    user: User = Depends(get_current_user)
+):
+    wallet_data = CreateWalletData(
+        user_id=user.id, nickname=wallet_me_data.nickname)
     return await create(wallet_data=wallet_data)
 
 

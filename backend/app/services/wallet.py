@@ -1,4 +1,4 @@
-from beanie import PydanticObjectId, WriteRules
+from beanie import DeleteRules, PydanticObjectId, WriteRules
 
 from ..dtos.create_wallet_data import CreateWalletData
 from ..models.user import User
@@ -6,7 +6,8 @@ from ..models.stock_entry import StockEntry
 from ..models.wallet import Wallet
 from ..utils.custom_exceptions import (stock_entry_not_found_exception,
                                        user_not_found_exception,
-                                       wallet_not_found_exception)
+                                       wallet_not_found_exception,
+                                       wallet_cannot_delete_not_empty)
 
 
 async def get_user_wallets(user: User):
@@ -51,9 +52,17 @@ async def get_user_wallet_containing_stock_entry(
     stock_entry_id: PydanticObjectId
 ):
 
-    await user.fetch_link(User.wallets)
+    try:
+        await user.fetch_link(User.wallets)
+    except Exception:
+        print('Tried to fetch already fetched link')
+
     for wallet in user.wallets:
-        await wallet.fetch_link(Wallet.stock_entries)
+        try:
+            await wallet.fetch_link(Wallet.stock_entries)
+        except Exception:
+            print('Tried to fetch already fetched link')
+
         for stock_entry in wallet.stock_entries:
             if stock_entry.id == stock_entry_id:
                 return wallet
@@ -86,5 +95,7 @@ async def update_wallet(wallet_id: PydanticObjectId, new_wallet: Wallet):
 
 async def delete_wallet(wallet_id: PydanticObjectId):
     wallet_to_delete = await get_wallet_by_id(wallet_id=wallet_id)
-    await wallet_to_delete.delete()
+    if len(wallet_to_delete.stock_entries) > 0:
+        raise wallet_cannot_delete_not_empty
+    await wallet_to_delete.delete(link_rule=DeleteRules.DELETE_LINKS)
     return {"detail": "Deleted."}

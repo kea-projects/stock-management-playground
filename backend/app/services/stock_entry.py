@@ -31,7 +31,6 @@ async def get_wallet_stock_entries(
         user=user
     )
 
-    await wallet.fetch_link(Wallet.stock_entries)
     return wallet.stock_entries
 
 
@@ -47,6 +46,15 @@ async def create_stock_entry(
         stock_id=stock_entry_data.stock_id
     )
 
+    entry_id = get_existing_stock_entry(wallet=wallet, stock_id=stock.id)
+    if entry_id is not None:
+        stock_entry = await add_to_stock_entry(
+            amount_data=AmountData(amount=stock_entry_data.amount),
+            stock_entry_id=entry_id,
+            user=user
+        )
+        return stock_entry
+
     if (
         wallet.balance >= stock.current_price * stock_entry_data.amount
     ):
@@ -60,7 +68,6 @@ async def create_stock_entry(
         await stock_entry.save(link_rule=WriteRules.WRITE)
 
         # Link stock_entry to wallet
-        await wallet.fetch_link(Wallet.stock_entries)
         wallet.stock_entries.append(stock_entry)
 
         # Update wallet balance
@@ -135,3 +142,13 @@ async def sell_from_stock_entry(
             return stock_entry
     else:
         raise stock_entry_amount_too_high_exception
+
+
+def get_existing_stock_entry(
+    wallet: Wallet,
+    stock_id: str
+):
+    for stock_entry in wallet.stock_entries:
+        if stock_entry.stock.id == stock_id:
+            return stock_entry.id
+    return None
