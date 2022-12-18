@@ -7,7 +7,7 @@ export function SideNavigationBar() {
     return (
         <VStack
             bg="contentBoxColor"
-            w={'30%'}
+            w={'25%'}
             py={5}
             justifyContent="space-between"
         >

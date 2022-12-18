@@ -36,6 +36,11 @@ user_already_exists_exception = HTTPException(
     detail="Username already taken."
 )
 
+user_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="User not found!"
+)
+
 
 # --- Wallet Exceptions ---
 
@@ -43,4 +48,41 @@ user_already_exists_exception = HTTPException(
 wallet_not_found_exception = HTTPException(
     status_code=status.HTTP_404_NOT_FOUND,
     detail="Wallet not found!"
+)
+
+
+wallet_not_enough_funds_exception = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Not enough funds for transaction!"
+)
+
+wallet_cannot_delete_not_empty = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Wallet cannot be deleted. Sell all stock entries first."
+)
+
+# --- Stock Exceptions ---
+
+stock_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock not found!"
+)
+
+# --- Stock Entry Exceptions ---
+
+stock_entry_not_found_exception = HTTPException(
+    status_code=status.HTTP_404_NOT_FOUND,
+    detail="Stock Entry not found!"
+)
+
+stock_entry_amount_too_high_exception = HTTPException(
+    status_code=status.HTTP_406_NOT_ACCEPTABLE,
+    detail="Stock Entry requested amount too high!"
+)
+
+# --- Finnhub Exceptions ---
+
+finnhub_exception = HTTPException(
+    status_code=status.HTTP_400_BAD_REQUEST,
+    detail="Finnhub exception!"
 )

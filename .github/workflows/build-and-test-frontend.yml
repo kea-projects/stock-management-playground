@@ -35,6 +35,8 @@ jobs:
           MONGO_HOST: ${{ secrets.MONGO_HOST }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           ALGORITHM: ${{ secrets.ALGORITHM }}
+          API_KEY: ${{ secrets.API_KEY }}
+          USE_RANDOM: ${{ secrets.USE_RANDOM }}
           ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
         run: |
           source .venv/bin/activate
@@ -62,13 +64,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Setup node
         uses: actions/setup-node@v2
         with:
           node-version: '18'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
         shell: bash
 
       - name: Download swagger json file
@@ -81,16 +88,16 @@ jobs:
         run: ls
 
       - name: Generate client-api
-        run: yarn swagger-generater:test
+        run: pnpm swagger-generater:test
         shell: bash
 
       - name: Run ESLint
-        run: yarn eslint .
+        run: pnpm eslint .
 
       - name: Build
-        run: yarn build
+        run: pnpm build
         shell: bash
 
       - name: Test
-        run: yarn test
+        run: pnpm test
         shell: bash

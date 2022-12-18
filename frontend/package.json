@@ -4,41 +4,40 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.14",
     "@chakra-ui/react": "^2.3.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@tanstack/react-query": "^4.2.3",
+    "@tanstack/react-table": "^8.7.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/axios": "^0.14.0",
-    "@types/crypto-js": "^4.1.1",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.56",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
     "axios": "^0.27.2",
+    "chart.js": "^4.0.1",
     "crypto-js": "^4.1.1",
     "framer-motion": "^7.2.1",
     "msw": "^0.47.0",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.0.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "recharts": "^2.1.16",
     "rimraf": "^3.0.2",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts",
+    "test": "react-scripts test ",
     "eject": "react-scripts eject",
     "swagger-clean": "rimraf ./src/api/client",
-    "swagger-generater": "yarn swagger-clean && npx @openapitools/openapi-generator-cli generate -i http://localhost:8000/openapi.json -g typescript-axios -o ./src/api/client -p typescriptThreePlus=true --skip-validate-spec",
-    "swagger-generater:test": "yarn swagger-clean && npx @openapitools/openapi-generator-cli generate -i ./content.json -g typescript-axios -o ./src/api/client -p typescriptThreePlus=true --skip-validate-spec"
-
+    "swagger-generater": "pnpm swagger-clean && npx @openapitools/openapi-generator-cli generate -i http://localhost:8000/openapi.json -g typescript-axios -o ./src/api/client -p typescriptThreePlus=true --skip-validate-spec",
+    "swagger-generater:test": "pnpm swagger-clean && npx @openapitools/openapi-generator-cli generate -i ./content.json -g typescript-axios -o ./src/api/client -p typescriptThreePlus=true --skip-validate-spec"
   },
   "eslintConfig": {
     "extends": [
@@ -60,6 +59,13 @@
   },
   "devDependencies": {
     "@types/testing-library__jest-dom": "^5.14.5",
-    "prettier": "^2.7.1"
+    "@types/crypto-js": "^4.1.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.56",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "history": "^5.3.0",
+    "prettier": "^2.7.1",
+    "resize-observer-polyfill": "^1.5.1"
   }
 }

@@ -3,6 +3,8 @@ import { SubmitHandler } from 'react-hook-form'
 import { SignUpForm } from './sign-up-form/SignUpForm'
 import { useSignUp } from '../../api/hooks/useAuth'
 import { useState } from 'react'
+import { AxiosError } from 'axios'
+import { HTTPValidationError } from '../../api/client'
 
 export interface SignUpFormValues {
     fullName: string
@@ -24,10 +26,16 @@ export function SignUp({ onSuccess }: SignUpProps) {
     ) => {
         mutate(signUpFormValues, {
             onSuccess: () => onSuccess(),
-            onError: () => {
-                setApiError(
+            onError: (error) => {
+                // I know that it is pretty ugly but the error object type is unknown
+                // So i sort of had to use this as keyword
+                const errorResponse =
+                    ((
+                        (error as AxiosError).response
+                            ?.data as HTTPValidationError
+                    ).detail as unknown as string) ??
                     'Looks like you entered bad information, please try again'
-                )
+                setApiError(errorResponse)
             },
         })
     }

@@ -59,3 +59,26 @@ async def test_self_read_user():
     assert data["username"] == test_username
     assert verify_password(test_password, data["password"])
     assert "_id" in data
+
+
+@pytest.mark.asyncio
+async def test_read_users():
+    user = await User(
+        full_name=test_full_name,
+        password=test_password,
+        username=test_username
+    ).create()
+
+    response = await client.get(f"{endpoint_prefix}/")
+
+    assert response.status_code == 200, response.text
+    data = response.json()
+
+    assert data == [
+        {"_id": str(user.id),
+         "username": test_username,
+         "password": test_password,
+         "full_name": test_full_name,
+         "wallets": []
+         }
+    ]

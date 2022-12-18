@@ -4,6 +4,9 @@ from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends
 
 from ..models.stock import Stock
+from ..services.finnhub import (fetch_stock_quote, get_external_stocks,
+                                get_stock_symbols)
+from ..services.stock import get_stock_by_id, get_stocks_no_history
 from ..utils.auth import verify_token
 
 router = APIRouter(
@@ -12,7 +15,39 @@ router = APIRouter(
 )
 
 
-# TODO: Implement actual functionality
-@router.get("/wallet/{wallet_id}", response_model=List[Stock], tags=["Stocks"])
-async def read_self_stocks_by_wallet_id(wallet_id: PydanticObjectId):
-    return await Stock.find_one(wallet_id)
+@router.get("/", response_model=List[Stock], tags=["Stocks"])
+async def read_stocks(search: str = None):
+    return await get_stocks_no_history(search=search)
+
+
+@router.get("/{stock_id}", response_model=Stock, tags=["Stocks"])
+async def read_stock_by_id(stock_id: PydanticObjectId):
+    return await get_stock_by_id(stock_id)
+
+
+@router.get(
+    "/symbol/{stock_symbol}",
+    response_model=Stock,
+    tags=["Stocks", "Finnhub"]
+)
+async def read_stock_by_symbol(stock_symbol: str):
+    return await fetch_stock_quote(symbol=stock_symbol)
+
+
+@router.get("/symbols/", response_model=List[str], tags=["Stocks", "Finnhub"])
+async def read_stock_symbols():
+    return await get_stock_symbols()
+
+
+@router.get(
+    "/external/",
+    response_model=List[Stock],
+    tags=["Stocks", "Finnhub"]
+)
+async def read_external_fetch_stocks():
+    return await get_external_stocks()
+
+
+@router.post("/", status_code=201, response_model=Stock, tags=["Stocks"])
+async def create_stock(stock: Stock):
+    return await stock.create()

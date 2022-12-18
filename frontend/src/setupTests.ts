@@ -4,7 +4,10 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom'
 import { server } from './mock-api/server'
+// import ResizeObserver from 'resize-observer-polyfill'
+
 beforeAll(() => {
+    // global.ResizeObserver = ResizeObserver
     window.matchMedia = (query) => ({
         matches: false,
         media: query,
