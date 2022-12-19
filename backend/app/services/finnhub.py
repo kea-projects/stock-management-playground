@@ -11,7 +11,6 @@ from ..services.stock import get_stock_symbols
 from ..utils.convertors import to_boolean
 from ..utils.custom_exceptions import finnhub_exception
 
-
 settings = get_settings()
 finnhub_client = finnhub.Client(api_key=settings.config["API_KEY"])
 use_random = to_boolean(settings.config["USE_RANDOM"]) or False

@@ -1,12 +1,12 @@
 import motor
 from beanie import init_beanie
 
-from .convertors import to_boolean
 from ..configs.settings import Settings
 from ..models.stock import Stock
 from ..models.stock_entry import StockEntry
 from ..models.user import User
 from ..models.wallet import Wallet
+from .convertors import to_boolean
 
 client = None
 
