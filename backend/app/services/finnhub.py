@@ -8,11 +8,13 @@ from ..configs.settings import get_settings
 from ..repos.stock import (create_external_stock, get_external_stock_by_ticker,
                            update_external_stock)
 from ..services.stock import get_stock_symbols
+from ..utils.convertors import to_boolean
 from ..utils.custom_exceptions import finnhub_exception
+
 
 settings = get_settings()
 finnhub_client = finnhub.Client(api_key=settings.config["API_KEY"])
-use_random = settings.config["USE_RANDOM"] or False
+use_random = to_boolean(settings.config["USE_RANDOM"]) or False
 
 
 async def fetch_stock_quote(symbol: str):
