@@ -1,6 +1,7 @@
 import motor
 from beanie import init_beanie
 
+from .convertors import to_boolean
 from ..configs.settings import Settings
 from ..models.stock import Stock
 from ..models.stock_entry import StockEntry
@@ -11,9 +12,13 @@ client = None
 
 
 async def init_db(settings: Settings):
+    connection_type = "mongodb+srv" if (
+        to_boolean(settings.config['MONGO_USE_SRV']) is True
+    ) else "mongodb"
+
     global client
     client = motor.motor_asyncio.AsyncIOMotorClient(
-        f"mongodb://{settings.config['MONGO_USER']}" +
+        f"{connection_type}://{settings.config['MONGO_USER']}" +
         f":{settings.config['MONGO_PASSWORD']}@{settings.config['MONGO_HOST']}"
     )
     await init_beanie(database=client.stock_management_playground,

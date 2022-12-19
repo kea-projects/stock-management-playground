@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  gateway:
+    container_name: gateway
+    image: cristi4500/fullstack:gateway
+    build:
+      context: .
+      dockerfile: ./configs/gateway/gateway.Dockerfile
+    restart: on-failure
+    ports: [ 80:80, 443:443 ]
+    volumes:
+      - certbot-keys:/etc/letsencrypt:rw
+      - certbot-backups:/var/lib/letsencrypt:rw
+
+  backend:
+    container_name: 'backend'
+    image: cristi4500/fullstack:backend
+    build:
+      context: .
+      dockerfile: ./configs/backend/backend.Dockerfile
+    environment:
+      - MONGO_HOST=$MONGO_HOST
+      - MONGO_USER=$MONGO_USER
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_USE_SRV=$MONGO_USE_SRV
+      - SECRET_KEY=$SECRET_KEY
+      - ALGORITHM=$ALGORITHM
+      - ACCESS_TOKEN_EXPIRE_MINUTES=$ACCESS_TOKEN_EXPIRE_MINUTES
+      - API_KEY=$API_KEY
+      - USE_RANDOM=$USE_RANDOM
+    restart: on-failure
+
+  frontend:
+    container_name: 'frontend'
+    image: cristi4500/fullstack:frontend
+    build:
+      context: .
+      dockerfile: ./configs/frontend/frontend.Dockerfile
+    environment:
+      - REACT_APP_API_URL=$REACT_APP_API_URL
+    restart: on-failure
+
+volumes:
+  certbot-keys:
+    name: certbot-keys
+  certbot-backups:
+    name: certbot-backups

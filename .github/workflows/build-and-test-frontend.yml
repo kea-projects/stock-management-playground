@@ -37,6 +37,7 @@ jobs:
           ALGORITHM: ${{ secrets.ALGORITHM }}
           API_KEY: ${{ secrets.API_KEY }}
           USE_RANDOM: ${{ secrets.USE_RANDOM }}
+          MONGO_USE_SRV: ${{ secrets.MONGO_USE_SRV }}
           ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
         run: |
           source .venv/bin/activate
