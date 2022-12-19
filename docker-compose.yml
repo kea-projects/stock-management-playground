@@ -3,6 +3,7 @@ version: '3'
 services:
   gateway:
     container_name: gateway
+    image: cristi4500/fullstack:gateway
     build:
       context: .
       dockerfile: ./configs/gateway/gateway.Dockerfile
@@ -14,6 +15,7 @@ services:
 
   backend:
     container_name: 'backend'
+    image: cristi4500/fullstack:backend
     build:
       context: .
       dockerfile: ./configs/backend/backend.Dockerfile
@@ -31,6 +33,7 @@ services:
 
   frontend:
     container_name: 'frontend'
+    image: cristi4500/fullstack:frontend
     build:
       context: .
       dockerfile: ./configs/frontend/frontend.Dockerfile
