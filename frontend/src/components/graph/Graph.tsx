@@ -40,7 +40,6 @@ export function Graph({
             for (let i = 0; i < data.length; i += 4) {
                 resultData.push(data[i])
             }
-            console.log(resultData.length)
             setDataForGraph(resultData)
         } else setDataForGraph(data)
     }
