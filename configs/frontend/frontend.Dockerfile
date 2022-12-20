@@ -8,8 +8,10 @@ COPY ./frontend/package-lock.json       package-lock.json
 RUN npm ci
 
 ARG REACT_APP_API_URL
+ARG REACT_APP_SENTRY_DSN
 
-ENV ARG REACT_APP_API_URL=$ARG REACT_APP_API_URL
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
+ENV REACT_APP_SENTRY_DSN=$REACT_APP_SENTRY_DSN
 
 COPY ./frontend/.prettierrc.json        .prettierrc.json 
 COPY ./frontend/tsconfig.json           tsconfig.json
