@@ -87,7 +87,7 @@ export function Graph({
                     </defs>
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                     <XAxis dataKey={dataKeyX} />
-                    <YAxis dataKey={dataKeyY} />
+                    <YAxis tickFormatter={(value)=> value.toFixed(2)} type="number" dataKey={dataKeyY} domain={['dataMin -10', "dataMax + 10"] } allowDecimals={false}/>
                     <Tooltip
                         contentStyle={{ backgroundColor: 'transparent' }}
                     />
