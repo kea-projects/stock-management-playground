@@ -38,14 +38,14 @@ export function SideNavigationBar() {
                     text={'Wallets'}
                     destination={routes.wallets}
                 />
-                <NavigationBarLink
-                    text={'Transactions'}
-                    destination={routes.transactions}
-                />
-                <NavigationBarLink
-                    text={'Portfolio'}
-                    destination={routes.portfolio}
-                />
+                {/*<NavigationBarLink*/}
+                {/*    text={'Transactions'}*/}
+                {/*    destination={routes.transactions}*/}
+                {/*/>*/}
+                {/*<NavigationBarLink*/}
+                {/*    text={'Portfolio'}*/}
+                {/*    destination={routes.portfolio}*/}
+                {/*/>*/}
             </VStack>
             <Divider />
             <VStack alignItems="flex-start" gap={3} py={5}>

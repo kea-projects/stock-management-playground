@@ -7,6 +7,7 @@ import {
 } from './provider/user-provider/UserProvider'
 import * as Sentry from '@sentry/react'
 import { BrowserTracing } from '@sentry/tracing'
+
 console.log(process.env.REACT_APP_SENTRY_DSN)
 Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -16,6 +17,7 @@ Sentry.init({
 
 function App() {
     const { userDetail } = useContext(UserContext)
+    console.log(userDetail)
     return (
         <UserProvider value={userDetail}>
             <BrowserRouter>

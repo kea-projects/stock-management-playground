@@ -31,7 +31,7 @@ export function UserProvider({ children, value }: UserProviderProps) {
 
     return (
         <UserContext.Provider value={{ userDetail, setUserDetail }}>
-            {children}
+            <div key={userDetail.token}>{children}</div>
         </UserContext.Provider>
     )
 }

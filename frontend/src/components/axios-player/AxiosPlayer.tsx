@@ -1,10 +1,10 @@
-import { useContext } from 'react'
+import { ReactNode, useContext } from "react";
 import { UserContext } from '../../provider/user-provider/UserProvider'
 import { axiosInstance } from '../../api/client-config/axiosConfig'
 import * as Sentry from '@sentry/react'
 
 interface AxiosAdminProps {
-    children: React.ReactNode
+    children: ReactNode
 }
 /*set jwt for logged in users*/
 export const AxiosPlayer = ({ children }: AxiosAdminProps) => {

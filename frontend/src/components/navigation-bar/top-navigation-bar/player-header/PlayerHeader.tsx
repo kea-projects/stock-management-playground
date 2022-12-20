@@ -12,6 +12,9 @@ import {
 } from '@chakra-ui/react'
 import { useQueryClient } from '@tanstack/react-query'
 import { UserKeys } from '../../../../api/hooks/useUser'
+import { WalletsKeys } from '../../../../api/hooks/useWallets'
+import { routes } from '../../../../routes'
+import { useNavigate } from 'react-router-dom'
 
 interface PlayerHeaderProps {
     fullName: string
@@ -20,9 +23,17 @@ interface PlayerHeaderProps {
 export function PlayerHeader({ fullName }: PlayerHeaderProps) {
     const { setUserDetail } = useContext(UserContext)
     const queryClient = useQueryClient()
+    const navigation = useNavigate()
+
     const logout = async () => {
-        await queryClient.invalidateQueries([UserKeys.userMeKey])
+        await queryClient.invalidateQueries([
+            UserKeys.userMeKey,
+            WalletsKeys.singleWalletMe,
+            WalletsKeys.allWalletsMe,
+        ])
         setUserDetail({})
+        navigation(routes.homepage)
+        navigation(0)
     }
     return (
         <Box position="relative">
