@@ -10,8 +10,8 @@ from ..models.wallet import Wallet
 from ..services.user import get_current_user
 from ..services.wallet import create_wallet as create
 from ..services.wallet import delete_wallet as delete
-from ..services.wallet import (
-    get_user_wallet_by_id, get_wallet_by_id, get_user_wallets)
+from ..services.wallet import (get_user_wallet_by_id, get_user_wallets,
+                               get_wallet_by_id)
 from ..services.wallet import update_wallet as update
 from ..utils.auth import verify_token
 
