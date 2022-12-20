@@ -1,7 +1,7 @@
 import { AxiosPlayer } from '../../../components/axios-player/AxiosPlayer'
 import { TopNavigationBar } from '../../../components/navigation-bar/top-navigation-bar/TopNavigationBar'
 import { useGetUserMe, UserKeys } from '../../../api/hooks/useUser'
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import { routes } from '../../../routes'
 import { HStack, VStack } from '@chakra-ui/react'
 import { useContext } from 'react'
@@ -16,10 +16,10 @@ export function PlayerRoute() {
     const { data, error } = useGetUserMe()
     const queryClient = useQueryClient()
     const { setUserDetail } = useContext(UserContext)
-  const navigation = useNavigate()
+    const navigation = useNavigate()
     if (error) {
-      setUserDetail({})
-      queryClient.invalidateQueries([
+        setUserDetail({})
+        queryClient.invalidateQueries([
             UserKeys.userMeKey,
             WalletsKeys.singleWalletMe,
             WalletsKeys.allWalletsMe,

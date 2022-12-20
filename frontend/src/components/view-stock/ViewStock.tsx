@@ -28,7 +28,7 @@ export function ViewStock({ stockTicker }: ViewStockProps) {
     }
     return (
         <VStack width="100%" height="100%">
-            <Text>{stockTicker}</Text>
+            <Text>{data?.name}</Text>
             <Graph data={dataForGraph()} dataKeyX={'name'} dataKeyY={'price'} />
         </VStack>
     )

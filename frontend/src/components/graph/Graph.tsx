@@ -1,14 +1,15 @@
 import {
     CartesianGrid,
-    ComposedChart,
     ResponsiveContainer,
     Tooltip,
     XAxis,
     YAxis,
-    Area,
     Brush,
+    LineChart,
+    Line,
 } from 'recharts'
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
+import { useEffect, useState } from 'react'
 
 interface StockGraphProps {
     data: any[]
@@ -21,17 +22,43 @@ interface StockGraphProps {
 
 export function Graph({
     data,
-    graphColor = '#908cde',
+    graphColor = '#649149',
     dataKeyY,
     dataKeyX,
     width = '100%',
     height = ['200px', '300px', '300px'],
 }: StockGraphProps) {
+    const [dataForGraph, setDataForGraph] = useState(() => data)
+    const [isZoomedOut, setIsZoomedOut] = useState(false)
+    useEffect(() => {
+        setDataForGraph(data)
+    }, [data])
+    const zoomLevel = () => {
+        setIsZoomedOut((value) => !value)
+        if (!isZoomedOut) {
+            const resultData = []
+            for (let i = 0; i < data.length; i += 4) {
+                resultData.push(data[i])
+            }
+            console.log(resultData.length)
+            setDataForGraph(resultData)
+        } else setDataForGraph(data)
+    }
     return (
         <Box width={width} height={height} p={4}>
+            <Button
+                variant="signInButton"
+                size="sm"
+                onClick={() => zoomLevel()}
+            >
+                {isZoomedOut ? 'Zoom In' : 'Zoom Out'}
+            </Button>
             <ResponsiveContainer>
-                <ComposedChart data={data}>
-                    <Area
+                <LineChart
+                    data={dataForGraph}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                >
+                    <Line
                         type="basisOpen"
                         dataKey={dataKeyY}
                         dot={false}
@@ -66,7 +93,7 @@ export function Graph({
                         contentStyle={{ backgroundColor: 'transparent' }}
                     />
                     <Brush />
-                </ComposedChart>
+                </LineChart>
             </ResponsiveContainer>
         </Box>
     )
