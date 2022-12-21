@@ -3,9 +3,15 @@ FROM node:alpine AS build
 WORKDIR /build
 
 COPY ./frontend/package.json            package.json
-COPY ./frontend/package-lock.json       package-lock.json
+COPY ./frontend/pnpm-lock.yaml          pnpm-lock.yaml
 
-RUN npm ci
+RUN apk update && apk add --no-cache libc6-compat
+
+RUN corepack enable && corepack prepare pnpm@7.4.1 --activate 
+
+RUN pnpm i
+
+RUN pnpm i @babel/core @babel/plugin-transform-react-jsx @testing-library/dom @babel/plugin-syntax-flow @chakra-ui/system prop-types typescript
 
 ARG REACT_APP_API_URL
 
